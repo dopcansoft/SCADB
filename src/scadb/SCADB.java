@@ -67,7 +67,7 @@ public class SCADB extends Application {
             if(vbAreTrabajo.getChildren().size()>0){
                 vbAreTrabajo.getChildren().clear();
             }
-            vbAreTrabajo.getChildren().add(pCrearVenta.mostrarVentanaCrearVenta());
+            vbAreTrabajo.getChildren().add(pCrearVenta.vistaCrearVenta());
         });
         
         
