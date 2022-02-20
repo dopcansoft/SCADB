@@ -50,10 +50,19 @@ public class pantallaCrearVenta {
    TextField tfTelefono = new TextField();
    TextField tfRFC = new TextField();
    TextField tfEmail = new TextField();
-   
+   TextField tfdescuento = new TextField();
+   Label lbDescuento = new Label();
+   Button btntDescuento = new Button();
+  
+    float MontoTotal = 0.0f;
+    float Descuento = 10.0f;
+   float MontoOriginal = 0.0f;
     
     public VBox vistaCrearVenta(){
-                
+        
+        tfdescuento.setText("");
+        lbDescuento.setText("Descuento");
+        btntDescuento.setText("Aplicar");
         tfCodigoCliente.setText("");
         tfNombre.setText("");
         tfRazonSocial.setText("");
@@ -77,9 +86,17 @@ public class pantallaCrearVenta {
 
         //Etiquetas/Datos de la Venta
         Label lbEtiquetaMonto = new Label("TOTAL: $ ");
-        Label lbMontoTotal = new Label("0.0");
+        Label lbMontoTotal = new Label("100.0");
+        MontoOriginal = Float.parseFloat(lbMontoTotal.getText());
         lbEtiquetaMonto.setFont(fuente);
         lbMontoTotal.setFont(fuente);
+        
+        btntDescuento.setOnAction((event) -> {
+  MontoTotal=MontoOriginal;
+        Descuento = MontoTotal / 100 * Float.parseFloat(tfdescuento.getText());
+        MontoTotal = MontoOriginal - Descuento;
+        lbMontoTotal.setText(String.valueOf(MontoTotal));
+        });
         
 	Label lbTipo_venta = new Label("Tipo de Venta: ");
         Label lbCodigoFactura = new Label("Codigo Factura");
@@ -267,8 +284,9 @@ public class pantallaCrearVenta {
         miEliminarDetVenta.setOnAction((event) -> {
             tvProductosSelecc.getItems().remove(
                     tvProductosSelecc.getSelectionModel().getSelectedIndex());
+            
             lbMontoTotal.setText("0.0");
-            float MontoTotal = 0.0f;
+
         });       
 
         Button btnAgregarProducto = new Button("Agregar Producto");
@@ -291,6 +309,13 @@ public class pantallaCrearVenta {
         gpClienteSeleccionado.add(tfCodigoCliente, 1, 0);
         gpClienteSeleccionado.add(lbNombre, 2, 0);
         gpClienteSeleccionado.add(tfNombre, 3, 0);
+         
+        GridPane gpDesscuento = new GridPane();
+        gpDesscuento.add(lbDescuento, 0,0);
+        gpDesscuento.add(tfdescuento, 1,0);
+        gpDesscuento.add(btntDescuento, 1,1);
+        gpDesscuento.setHgap(10);
+        gpDesscuento.setVgap(10);
         
         gpClienteSeleccionado.add(lbRazon_social, 0, 1);
         gpClienteSeleccionado.add(tfRazonSocial, 1, 1);
@@ -355,12 +380,12 @@ public class pantallaCrearVenta {
         });
         
         HBox hbTotal = new HBox();
-        hbTotal.setPrefWidth(400);
-        hbTotal.setMaxWidth(500);
+        hbTotal.setPrefWidth(6000);
+        hbTotal.setMaxWidth(600);
         hbTotal.setMinWidth(400);
         hbTotal.setSpacing(10);
         hbTotal.setAlignment(Pos.CENTER_RIGHT);
-        hbTotal.getChildren().addAll(lbEtiquetaMonto, lbMontoTotal);
+        hbTotal.getChildren().addAll(lbEtiquetaMonto, lbMontoTotal, gpDesscuento);
         
         hbCompSeleccion.getChildren().addAll(vbCodigo, vbDesc, vbCat, btnBuscarProductos, hbTotal);
         hbCompSeleccion.setPadding(new Insets(10, 10, 10, 10));
