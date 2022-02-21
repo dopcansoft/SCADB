@@ -41,14 +41,28 @@ public class pantallaExportarDbVenta {
     public VBox vistaExportarDB(){
         Font fuente = new Font("Arial Bold", 36);
         lbTituloPantalla.setFont(fuente);
-
+        
+        vbPrincipal.setSpacing(10);
+        vbPrincipal.setAlignment(Pos.CENTER);
+        
+        tvProductos.setPadding(new Insets(5,5,5,5));
+        tvProductos.setPrefSize(800, 400);
+        tvProductos.setMinSize(800, 400);
+        tvProductos.setMaxSize(800, 400);
+        
 
         hbBotones.setHgrow(hbFecha, Priority.ALWAYS);
         hbBotones.setAlignment(Pos.CENTER.CENTER_RIGHT);
         hbBotones.setSpacing(30);
+        hbBotones.setPrefWidth(800);
+        hbBotones.setMinWidth(800);
+        hbBotones.setMaxWidth(800);
         
         hbFecha.getChildren().addAll(lbFecha, dtFecha, btntConsultar);
         hbFecha.setSpacing(30);
+        hbFecha.setPrefWidth(800);
+        hbFecha.setMaxWidth(800);
+        hbFecha.setMinWidth(800);
         
         hbBotones.getChildren().addAll(btntSalir, btntExportarDB);
         

@@ -34,6 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -384,6 +385,7 @@ public class pantallaCrearVenta {
         hbTotal.setMaxWidth(600);
         hbTotal.setMinWidth(400);
         hbTotal.setSpacing(10);
+        hbTotal.setHgrow(vbHead, Priority.ALWAYS);
         hbTotal.setAlignment(Pos.CENTER_RIGHT);
         hbTotal.getChildren().addAll(lbEtiquetaMonto, lbMontoTotal, gpDesscuento);
         
