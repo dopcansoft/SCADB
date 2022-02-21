@@ -19,9 +19,9 @@ import javafx.scene.text.Font;
  *
  * @author dopcan
  */
-public class pantallaCancelarVenta {
+public class pantallaExportarXlsVenta {
     
-    Label lbTituloPantalla = new Label("CREAR VENTAS");    
+    Label lbTituloPantalla = new Label("EXPORTAR XLS");    
     
     VBox vbPrincipal = new VBox();
     GridPane gpDatos =  new GridPane();
@@ -36,7 +36,7 @@ public class pantallaCancelarVenta {
     Button btnGuardar = new Button("Guardar");
     Button btnSalir = new Button("Salir");
     
-    public VBox vistaCancelarVenta(){
+    public VBox vistaExportarXLS(){
         Font fuente = new Font("Arial Bold", 36);
         lbTituloPantalla.setFont(fuente);
                 

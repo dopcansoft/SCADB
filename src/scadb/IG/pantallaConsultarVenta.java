@@ -19,24 +19,24 @@ import javafx.scene.text.Font;
  *
  * @author dopcan
  */
-public class pantallaCancelarVenta {
+public class pantallaConsultarVenta {
     
-    Label lbTituloPantalla = new Label("CREAR VENTAS");    
+    Label lbTituloPantalla = new Label("CONSULTAR VENTAS");    
     
-    VBox vbPrincipal = new VBox();
-    GridPane gpDatos =  new GridPane();
-    HBox hbBotones = new HBox();
+    private VBox vbPrincipal = new VBox();
+    private GridPane gpDatos =  new GridPane();
+    private HBox hbBotones = new HBox();
     
-    Label lbNombre = new Label("Nombre");
-    Label lbDireccion = new Label("Direccion");
+    private Label lbNombre = new Label("Nombre");
+    private Label lbDireccion = new Label("Direccion");
     
-    TextField tfNombre = new TextField();
-    TextField tfDireccion = new TextField();
+    private TextField tfNombre = new TextField();
+    private TextField tfDireccion = new TextField();
     
-    Button btnGuardar = new Button("Guardar");
-    Button btnSalir = new Button("Salir");
+    private Button btnGuardar = new Button("Guardar");
+    private Button btnSalir = new Button("Salir");
     
-    public VBox vistaCancelarVenta(){
+    public VBox vistaConsultarVenta(){
         Font fuente = new Font("Arial Bold", 36);
         lbTituloPantalla.setFont(fuente);
                 
