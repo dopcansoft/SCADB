@@ -14,7 +14,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import scadb.IG.pantallaCancelarVenta;
+import scadb.IG.pantallaConsultarVenta;
 import scadb.IG.pantallaCrearVenta;
+import scadb.IG.pantallaExportarDbVenta;
+import scadb.IG.pantallaExportarXlsVenta;
 
 /**
  *
@@ -27,6 +31,10 @@ public class SCADB extends Application {
         // pantallas
         
         pantallaCrearVenta pCrearVenta = new pantallaCrearVenta();
+        pantallaConsultarVenta pConsultarVenta = new pantallaConsultarVenta();
+        pantallaCancelarVenta pCancelarVenta = new pantallaCancelarVenta();
+        pantallaExportarXlsVenta pExportaXlsVenta = new pantallaExportarXlsVenta();
+        pantallaExportarDbVenta pExportaDbVenta = new pantallaExportarDbVenta();
         
         
         
@@ -65,14 +73,42 @@ public class SCADB extends Application {
         
         miCrearVentas.setOnAction((event) -> {
             if(vbAreTrabajo.getChildren().size()>0){
-                vbAreTrabajo.getChildren().clear();
+                vbAreTrabajo.getChildren().clear(); 
             }
             vbAreTrabajo.getChildren().add(pCrearVenta.vistaCrearVenta());
         });
         
+        miConsultarVentas.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear();
+            }
+            vbAreTrabajo.getChildren().add(pConsultarVenta.vistaConsultarVenta());
+        });
         
+        miCancelarVentas.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear();
+            }
+            vbAreTrabajo.getChildren().add(pCancelarVenta.vistaCancelarVenta());
+            
+        });
         
+        miExportaXLS.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear();
+            }
+            vbAreTrabajo.getChildren().add(pExportaXlsVenta.vistaExportarXLS());
+            
+        });
+        miExportaDB.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear();
+            }
+            vbAreTrabajo.getChildren().add(pExportaDbVenta.vistaExportarDB());
+            
+        });
         
+             
         vbPrincipal.getChildren().addAll(mbPincipal,vbAreTrabajo);
         
         StackPane root = new StackPane();
