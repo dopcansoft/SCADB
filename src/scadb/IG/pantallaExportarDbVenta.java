@@ -8,10 +8,11 @@ package scadb.IG;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -21,41 +22,38 @@ import javafx.scene.text.Font;
  */
 public class pantallaExportarDbVenta {
     
-    Label lbTituloPantalla = new Label("EXPORTAR DB");    
-    
     VBox vbPrincipal = new VBox();
-    GridPane gpDatos =  new GridPane();
+    HBox hbFecha = new HBox();
     HBox hbBotones = new HBox();
     
-    Label lbNombre = new Label("Nombre");
-    Label lbDireccion = new Label("Direccion");
+    DatePicker dtFecha = new DatePicker();
     
-    TextField tfNombre = new TextField();
-    TextField tfDireccion = new TextField();
+    Label lbFecha = new Label("Fecha");
+    Label lbTituloPantalla = new Label("EXPORTAR DB");   
     
-    Button btnGuardar = new Button("Guardar");
-    Button btnSalir = new Button("Salir");
+    Button btntExportarDB = new Button("Exportar DB");
+    Button btntSalir = new Button("Salir");
+    Button btntConsultar = new Button("Consultar");
+    
+    TableView tvProductos = new TableView();
+    
     
     public VBox vistaExportarDB(){
         Font fuente = new Font("Arial Bold", 36);
         lbTituloPantalla.setFont(fuente);
-                
+
+
+        hbBotones.setHgrow(hbFecha, Priority.ALWAYS);
+        hbBotones.setAlignment(Pos.CENTER.CENTER_RIGHT);
+        hbBotones.setSpacing(30);
         
-        gpDatos.add(lbNombre, 0, 0);
-        gpDatos.add(tfNombre, 1, 0);
-        gpDatos.add(lbDireccion, 0, 1);
-        gpDatos.add(tfDireccion, 1, 1);
-        gpDatos.setPadding(new Insets(15));
-        gpDatos.setVgap(10);
-        gpDatos.setHgap(10);
+        hbFecha.getChildren().addAll(lbFecha, dtFecha, btntConsultar);
+        hbFecha.setSpacing(30);
         
+        hbBotones.getChildren().addAll(btntSalir, btntExportarDB);
         
-        hbBotones.getChildren().addAll(btnGuardar, btnSalir);
-        hbBotones.setSpacing(20);
-        hbBotones.setPadding(new Insets(10));
-        
-        vbPrincipal.getChildren().addAll(lbTituloPantalla, gpDatos, hbBotones);
-        vbPrincipal.setAlignment(Pos.CENTER);
+        vbPrincipal.getChildren().addAll(lbTituloPantalla, hbFecha, tvProductos, hbBotones);
+        vbPrincipal.setSpacing(30);
         
        return vbPrincipal; 
     }
