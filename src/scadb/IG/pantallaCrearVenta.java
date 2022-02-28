@@ -93,7 +93,7 @@ public class pantallaCrearVenta {
         lbMontoTotal.setFont(fuente);
         
         btntDescuento.setOnAction((event) -> {
-  MontoTotal=MontoOriginal;
+        MontoTotal=MontoOriginal;
         Descuento = MontoTotal / 100 * Float.parseFloat(tfdescuento.getText());
         MontoTotal = MontoOriginal - Descuento;
         lbMontoTotal.setText(String.valueOf(MontoTotal));

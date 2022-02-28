@@ -14,6 +14,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import scadb.IG.PantallaAgregarProducto;
+import scadb.IG.PantallaEliminarProducto;
+import scadb.IG.PantallaImportarProducto;
+import scadb.IG.PantallaModificarProducto;
 import scadb.IG.pantallaCancelarVenta;
 import scadb.IG.pantallaConsultarVenta;
 import scadb.IG.pantallaCrearVenta;
@@ -76,8 +80,35 @@ public class SCADB extends Application {
                 vbAreTrabajo.getChildren().clear(); 
             }
             vbAreTrabajo.getChildren().add(pCrearVenta.vistaCrearVenta());
+        });       
+        miEliminarProducto.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear(); 
+            }
+            vbAreTrabajo.getChildren().add(PantallaEliminarProducto.vistaEliminarProducto());
         });
         
+               miImportarProducto.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear(); 
+            }
+            vbAreTrabajo.getChildren().add(PantallaImportarProducto.VistaImportarProducto());
+        });
+        
+                miAgregarProducto.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear(); 
+            }
+            vbAreTrabajo.getChildren().add(PantallaAgregarProducto.vistaNuevoProducto());
+        }); 
+                
+                 miModificarProducto.setOnAction((event) -> {
+            if(vbAreTrabajo.getChildren().size()>0){
+                vbAreTrabajo.getChildren().clear(); 
+            }
+            vbAreTrabajo.getChildren().add(PantallaModificarProducto.vistaModificarProducto());
+        });
+
         miConsultarVentas.setOnAction((event) -> {
             if(vbAreTrabajo.getChildren().size()>0){
                 vbAreTrabajo.getChildren().clear();
