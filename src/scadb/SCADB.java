@@ -79,7 +79,7 @@ public class SCADB extends Application {
             if(vbAreTrabajo.getChildren().size()>0){
                 vbAreTrabajo.getChildren().clear(); 
             }
-            vbAreTrabajo.getChildren().add(pCrearVenta.vistaCrearVenta());
+            vbAreTrabajo.getChildren().add(pCrearVenta.vistaCrearVenta(vbAreTrabajo));
         });       
         miEliminarProducto.setOnAction((event) -> {
             if(vbAreTrabajo.getChildren().size()>0){
@@ -99,7 +99,7 @@ public class SCADB extends Application {
             if(vbAreTrabajo.getChildren().size()>0){
                 vbAreTrabajo.getChildren().clear(); 
             }
-            vbAreTrabajo.getChildren().add(PantallaAgregarProducto.vistaNuevoProducto());
+            vbAreTrabajo.getChildren().add(PantallaAgregarProducto.vistaNuevoProducto(vbAreTrabajo));
         }); 
                 
                  miModificarProducto.setOnAction((event) -> {

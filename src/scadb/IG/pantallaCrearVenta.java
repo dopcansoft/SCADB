@@ -5,6 +5,17 @@
  */
 package scadb.IG;
 
+import BO.VentaBO;
+import DTO.CLIENTE;
+import DTO.Credito;
+import DTO.VENTA;
+import DTO.apartado;
+import DTO.bitacora_precio;
+import DTO.categoria;
+import DTO.detalle_venta;
+import DTO.inventario;
+import DTO.notas_remision;
+import DTO.usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +27,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -35,8 +47,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import scadb.DAO.bitacora_precioDAO;
+import scadb.DAO.categoriaDAO;
+import scadb.DAO.clienteDAO;
+import scadb.DAO.inventarioDAO;
 
 /**
  *
@@ -58,8 +77,27 @@ public class pantallaCrearVenta {
     float MontoTotal = 0.0f;
     float Descuento = 10.0f;
    float MontoOriginal = 0.0f;
+   
+   usuario usrActivo;
+   ObservableList<detalle_venta> detventa = FXCollections.observableArrayList();
+   categoriaDAO categDAO = new categoriaDAO();
+   inventarioDAO invent = new inventarioDAO();
+   bitacora_precioDAO bitacoraDAO = new bitacora_precioDAO();
+   clienteDAO cliDAO = new clienteDAO();
+   CLIENTE clIdent = new CLIENTE();
     
-    public VBox vistaCrearVenta(){
+    public VBox vistaCrearVenta(VBox vbAreaTrabajo){
+        usrActivo = new usuario();
+        usrActivo.setBandera(1);
+        usrActivo.setClave("SuperUser");
+        usrActivo.setId_usuario(10);
+        usrActivo.setNombre_completo("Administrador");
+        usrActivo.setTipo("SuperUser");
+        usrActivo.setUsuario("SuperUser");
+       
+         if (detventa.size()>0){
+            detventa = FXCollections.observableArrayList();
+        }
         
         tfdescuento.setText("");
         lbDescuento.setText("Descuento");
@@ -70,7 +108,8 @@ public class pantallaCrearVenta {
         tfDomicilioFiscal.setText("");
         tfTelefono.setText("");
         tfRFC.setText("");
-        tfEmail.setText("");       
+        tfEmail.setText(""); 
+        
         
         VBox vbVistaPpal = new VBox();
 
@@ -84,17 +123,19 @@ public class pantallaCrearVenta {
         
         TextField tfFolio = new TextField();
         DatePicker dpFecha = new DatePicker(LocalDate.now());
-
+//        if(usrActivo.getTipo().equals("VENTA")){
+//          dpFecha.setEditable(false);
+//          dpFecha.setDisable(true);
+//        }
         //Etiquetas/Datos de la Venta
         Label lbEtiquetaMonto = new Label("TOTAL: $ ");
-        Label lbMontoTotal = new Label("100.0");
-        MontoOriginal = Float.parseFloat(lbMontoTotal.getText());
+        Label lbMontoTotal = new Label("0.0");
         lbEtiquetaMonto.setFont(fuente);
         lbMontoTotal.setFont(fuente);
         
         btntDescuento.setOnAction((event) -> {
-        MontoTotal=MontoOriginal;
-        Descuento = MontoTotal / 100 * Float.parseFloat(tfdescuento.getText());
+        
+        Descuento = MontoOriginal / 100 * Float.parseFloat(tfdescuento.getText());
         MontoTotal = MontoOriginal - Descuento;
         lbMontoTotal.setText(String.valueOf(MontoTotal));
         });
@@ -173,7 +214,9 @@ public class pantallaCrearVenta {
        List<String> lstCategorias = new ArrayList<>();
        List<String> lstWherecat = new ArrayList<>();
        lstWherecat.add("id_categoria is not null");
-
+       for (categoria i : categDAO.consultarCategoria(lstWherecat)){
+            lstCategorias.add(i.getCategoria());
+       }
         
         Label lbCodigo = new Label("Codigo: ");
         TextField tfCodigo = new TextField();
@@ -188,57 +231,70 @@ public class pantallaCrearVenta {
         tvInventario.setPrefHeight(350);
         tvInventario.setPrefWidth(550);
         
-        TableColumn<String, Integer> claveProdColumna = new TableColumn<>("Codigo Producto");
+        TableColumn<inventario, Integer> claveProdColumna = new TableColumn<>("Codigo Producto");
         claveProdColumna.setMinWidth(120);
         claveProdColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prod"));
 
-        TableColumn<String, Integer> existenciaColumna = new TableColumn<>("Existencia");
+        TableColumn<inventario, Integer> existenciaColumna = new TableColumn<>("Existencia");
         existenciaColumna.setMinWidth(120);
         existenciaColumna.setCellValueFactory(new PropertyValueFactory<>("existencia"));
         
-        TableColumn<String, Integer> idUbicacionColumna = new TableColumn<>("Id Ubicación");
+        TableColumn<inventario, Integer> idUbicacionColumna = new TableColumn<>("Id Ubicación");
         idUbicacionColumna.setMinWidth(120);
         idUbicacionColumna.setCellValueFactory(new PropertyValueFactory<>("id_ubicacion"));
         
-        TableColumn<String, Float> pMenudeoColumna = new TableColumn<>("Precio Menudeo");
+        TableColumn<inventario, Float> pMenudeoColumna = new TableColumn<>("Precio Menudeo");
         pMenudeoColumna.setMinWidth(120);
         pMenudeoColumna.setCellValueFactory(new PropertyValueFactory<>("precio_menudeo"));        
 
-        TableColumn<String, Float> pMayoreoColumna = new TableColumn<>("Precio Mayoreo");
+        TableColumn<inventario, Float> pMayoreoColumna = new TableColumn<>("Precio Mayoreo");
         pMayoreoColumna.setMinWidth(120);
         pMayoreoColumna.setCellValueFactory(new PropertyValueFactory<>("precio_mayoreo"));
         
-        TableColumn<String, String> descripcionColumna = new TableColumn<>("Descripción");
+        TableColumn<inventario, String> descripcionColumna = new TableColumn<>("Descripción");
         descripcionColumna.setMinWidth(120);
         descripcionColumna.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         
-        TableColumn<String, String> uMedidaColumna = new TableColumn<>("Unidad Medidad");
+        TableColumn<inventario, String> uMedidaColumna = new TableColumn<>("Unidad Medidad");
         uMedidaColumna.setMinWidth(120);
         uMedidaColumna.setCellValueFactory(new PropertyValueFactory<>("unidad_medida"));
 
-        TableColumn<String, Float> cCompraColumna = new TableColumn<>("Costo Compra");
+        TableColumn<inventario, Float> cCompraColumna = new TableColumn<>("Costo Compra");
         cCompraColumna.setMinWidth(120);
         cCompraColumna.setCellValueFactory(new PropertyValueFactory<>("costo_compra"));
         
-        TableColumn<String, Integer> codProvColumna = new TableColumn<>("Codigo Proveedor");
+        TableColumn<inventario, Integer> codProvColumna = new TableColumn<>("Codigo Proveedor");
         codProvColumna.setMinWidth(120);
         codProvColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prov"));
         
         tvInventario.getColumns().addAll(claveProdColumna, descripcionColumna, existenciaColumna,
                 pMenudeoColumna, pMayoreoColumna, uMedidaColumna, idUbicacionColumna, 
                 codProvColumna, cCompraColumna);
+        List<String> lstWhere = new ArrayList<>();
+        lstWhere.add("codigo_prod is not null");
+        tvInventario.setItems(invent.consultarInventario(lstWhere));
         
         tvInventario.setOnMouseClicked((event) -> {
-            tfCodigoProducto.setText("");
-            tfDescrProd.setText("");
-            tfPrecioMenudeo.setText("");
-            tfPrecioMayor.setText("");
+            inventario inv = new inventario();
+            inv = (inventario) tvInventario.getSelectionModel().getSelectedItem();
+            tfCodigoProducto.setText(String.valueOf(inv.getCodigo_prod()));
+            tfDescrProd.setText(inv.getDescripcion());
+            tfPrecioMenudeo.setText(String.valueOf(inv.getPrecio_menudeo()));
+            tfPrecioMayor.setText(String.valueOf(inv.getPrecio_mayoreo()));
             rbPrecioMenudeo.setSelected(true);
             tfPrecioVenta.setText(tfPrecioMenudeo.getText());
         });
         
         tvInventario.setOnKeyPressed((event) ->{ 
             if(event.getCode()==KeyCode.ENTER){
+                inventario inv = new inventario();
+                inv = (inventario) tvInventario.getSelectionModel().getSelectedItem();
+                tfCodigoProducto.setText(String.valueOf(inv.getCodigo_prod()));
+                tfDescrProd.setText(inv.getDescripcion());
+                tfPrecioMenudeo.setText(String.valueOf(inv.getPrecio_menudeo()));
+                tfPrecioMayor.setText(String.valueOf(inv.getPrecio_mayoreo()));
+                rbPrecioMenudeo.setSelected(true);
+                tfPrecioVenta.setText(tfPrecioMenudeo.getText());
             }
         });
         MenuItem miEliminarDetVenta = new MenuItem("Eliminar");
@@ -252,54 +308,170 @@ public class pantallaCrearVenta {
         //id_detalle_venta clave_prod cantidad codigo_nota_venta 
         //codigo_prod precio_menudeo precio_mayoreo descrprod 
         
-        TableColumn<String, Integer> idDetalleVentaColumna = new TableColumn<>("Id Detalle Venta");
+        TableColumn<detalle_venta, Integer> idDetalleVentaColumna = new TableColumn<>("Id Detalle Venta");
         idDetalleVentaColumna.setMinWidth(120);
         idDetalleVentaColumna.setCellValueFactory(new PropertyValueFactory<>("id_detalle_venta"));
         
-        TableColumn<String, Integer> codigoProductColumna = new TableColumn<>("Codigo Producto");
+        TableColumn<detalle_venta, Integer> codigoProductColumna = new TableColumn<>("Codigo Producto");
         codigoProductColumna.setMinWidth(80);
         codigoProductColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prod"));
         
-        TableColumn<String, String> descrProductColumna = new TableColumn<>("Descripción Producto");
+        TableColumn<detalle_venta, String> descrProductColumna = new TableColumn<>("Descripción Producto");
         descrProductColumna.setMinWidth(220);
         descrProductColumna.setCellValueFactory(new PropertyValueFactory<>("descrprod"));
         
-        TableColumn<String, Integer> cantidadProductColumna = new TableColumn<>("Cantidad");
+        TableColumn<detalle_venta, Integer> cantidadProductColumna = new TableColumn<>("Cantidad");
         cantidadProductColumna.setMinWidth(80);
         cantidadProductColumna.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         
-        TableColumn<String, Integer> codigoNotaVentaColumna = new TableColumn<>("Codigo Nota Venta");
+        TableColumn<detalle_venta, Integer> codigoNotaVentaColumna = new TableColumn<>("Codigo Nota Venta");
         codigoNotaVentaColumna.setMinWidth(120);
         codigoNotaVentaColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_nota_venta"));
 
-        TableColumn<String, Integer> precioVentaColumna = new TableColumn<>("Precio Venta");
+        TableColumn<detalle_venta, Integer> precioVentaColumna = new TableColumn<>("Precio Venta");
         precioVentaColumna.setMinWidth(120);
         precioVentaColumna.setCellValueFactory(new PropertyValueFactory<>("precio_venta"));
         
-        TableColumn<String, Integer> subtotalColumna = new TableColumn<>("Sub-total");
+        TableColumn<detalle_venta, Integer> subtotalColumna = new TableColumn<>("Sub-total");
         subtotalColumna.setMinWidth(120);
         subtotalColumna.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
         
         tvProductosSelecc.getColumns().addAll(codigoProductColumna, descrProductColumna, cantidadProductColumna, precioVentaColumna, subtotalColumna);
+        tvProductosSelecc.setItems(detventa);
         tvProductosSelecc.setContextMenu(cmTabVentas);
         miEliminarDetVenta.setOnAction((event) -> {
             tvProductosSelecc.getItems().remove(
                     tvProductosSelecc.getSelectionModel().getSelectedIndex());
-            
             lbMontoTotal.setText("0.0");
-
+            float MontoTotal = 0.0f;
+            for (detalle_venta detv : detventa){
+                MontoTotal = MontoTotal + detv.getSubTotal();
+                lbMontoTotal.setText(Float.toString(MontoTotal));  
+            }
         });       
 
         Button btnAgregarProducto = new Button("Agregar Producto");
         btnAgregarProducto.setOnAction((ActionEvent e)->{
-            
+            inventario inv = new inventario();
+            inv = (inventario) tvInventario.getSelectionModel().getSelectedItem();
+            if (tfCodigoProducto.getText().length()>0){
+             if (tfCantidad.getText().length()>0){
+                 if (inv.getExistencia()>= Integer.parseInt(tfCantidad.getText())){
+                     if (tfPrecioVenta.getText().length()> 0){
+                         detalle_venta detvta = new detalle_venta();
+                         detvta.setCodigo_prod(Integer.parseInt(tfCodigoProducto.getText()));
+                         detvta.setDescrprod(tfDescrProd.getText());
+                         detvta.setCantidad(Integer.parseInt(tfCantidad.getText()));
+                         detvta.setExistencia(inv.getExistencia());
+                         float pventa = Float.parseFloat(tfPrecioVenta.getText());
+                         if (rbPrecioMenudeo.isSelected()){
+                             float pmenudeo = Float.parseFloat(tfPrecioMenudeo.getText());
+                             if ( pventa != pmenudeo){
+                                Alert alertmjs = new Alert(Alert.AlertType.CONFIRMATION);
+                                alertmjs.setTitle("Mensaje de Confirmacion");
+                                alertmjs.setContentText("El precio de venta es diferente del precio de menudeo, "
+                                        + "Deseas almacenarlo como precio oficial?");
+                                Optional<ButtonType> action = alertmjs.showAndWait();
+                                if (action.get() == ButtonType.OK) {
+                                    invent.modificarPrecioMenudeo(Integer.parseInt(tfCodigoProducto.getText()), pventa);
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: ");
+                                    System.out.println("Modifico Inventario Precio Menudeo:\n precio"+pventa+"\n Producto: "
+                                            +tfCodigoProducto.getText());
+                                }
+                                bitacora_precio bitCambioPrecio = new bitacora_precio();
+                                bitCambioPrecio.setCodigo_prod(Integer.parseInt(tfCodigoProducto.getText()));
+                                bitCambioPrecio.setId_usuario(usrActivo.getId_usuario());
+                                bitCambioPrecio.setNombreUsuario(usrActivo.getNombre_completo());
+                                bitCambioPrecio.setPrecio_menudeo_ant(Float.parseFloat(tfPrecioMenudeo.getText()));
+                                bitCambioPrecio.setPrecio_menudeo(Float.parseFloat(tfPrecioVenta.getText()));
+                                bitCambioPrecio.setFecha(LocalDateTime.now().toString());
+                                bitCambioPrecio.setBandera(1);
+                                bitacoraDAO.insertarBitacora(bitCambioPrecio);
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: ");
+                                    System.out.println("Agrego Reg. Bitacora Precio:\n precio"+pventa+"\n Producto: "
+                                            +tfCodigoProducto.getText());
+                             } 
+                         }
+                         if (rbPrecioMayoreo.isSelected()){
+                             float pmayoreo = Float.parseFloat(tfPrecioMayor.getText());
+                             if ( pventa != pmayoreo){
+                                Alert alertmjs = new Alert(Alert.AlertType.CONFIRMATION);
+                                alertmjs.setTitle("Mensaje de Confirmacion");
+                                alertmjs.setContentText("El precio de venta es diferente del precio de mayoreo, "
+                                        + "Deseas almacenarlo como precio oficial?");
+                                Optional<ButtonType> action = alertmjs.showAndWait();
+                                if (action.get() == ButtonType.OK) {
+                                    invent.modificarPrecioMayoreo(Integer.parseInt(tfCodigoProducto.getText()), pventa);
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: ");
+                                    System.out.println("Modifico Inventario Precio Mayoreo:\n precio"+pventa+"\n Producto: "
+                                            +tfCodigoProducto.getText());
+                                }
+                                bitacora_precio bitCambioPrecio = new bitacora_precio();
+                                bitCambioPrecio.setCodigo_prod(Integer.parseInt(tfCodigoProducto.getText()));
+                                bitCambioPrecio.setId_usuario(usrActivo.getId_usuario());
+                                bitCambioPrecio.setNombreUsuario(usrActivo.getNombre_completo());
+                                bitCambioPrecio.setPrecio_mayoreo_ant(Float.parseFloat(tfPrecioMayor.getText()));
+                                bitCambioPrecio.setPrecio_mayoreo(pventa);
+                                bitCambioPrecio.setFecha(LocalDateTime.now().toString());
+                                bitCambioPrecio.setBandera(1);
+                                bitacoraDAO.insertarBitacora(bitCambioPrecio);
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: ");
+                                    System.out.println("Agrego Reg. Bitacora Precio:\n precio"+pventa+"\n Producto: "
+                                            +tfCodigoProducto.getText());
+                             } 
+                         }
+                            
+                            detvta.setPrecio_venta(Float.parseFloat(tfPrecioVenta.getText()));
+                            detvta.setSubTotal(Integer.parseInt(tfCantidad.getText())* Float.parseFloat(tfPrecioVenta.getText()));
+                            float MontoTotal = Float.parseFloat(lbMontoTotal.getText());
+                            MontoTotal = MontoTotal + Integer.parseInt(tfCantidad.getText())* Float.parseFloat(tfPrecioVenta.getText());
+                            lbMontoTotal.setText(Float.toString(MontoTotal));
+                            //MontoOriginal = Float.parseFloat(lbMontoTotal.getText());
+                            MontoOriginal = MontoTotal;
+                            detventa.add(detvta);
+                            //System.out.println("Cuantos van:"+detventa.size());
+                        }else {
+                         Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+                         MensajeError.setTitle("Error");
+                         MensajeError.setContentText("Falta Costo de Venta");
+                         MensajeError.show();
+                        }
+                    }else {
+                       Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+                       MensajeError.setTitle("Error");
+                       MensajeError.setContentText("No puedes poner una cantidad mayor a la \n de la existencia en inventario");
+                       MensajeError.show();
+                    }
+                }else {
+               Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+               MensajeError.setTitle("Error");
+               MensajeError.setContentText("Falta Cantidad de compra");
+               MensajeError.show();
+              }
+            } else{
+               Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+               MensajeError.setTitle("Error");
+               MensajeError.setContentText("Falta Seleccionar Producto");
+               MensajeError.show();           
+            }
         });
         
         
         Button btnSeleccionarCliente = new Button("Seleccionar Cliente..");
         btnSeleccionarCliente.setOnAction((ActionEvent e)->{
-           
+            ventanaSeleccionarClientes();
         });
+        
+        GridPane gpDesscuento = new GridPane();
+        gpDesscuento.add(lbDescuento, 0,0);
+        gpDesscuento.add(tfdescuento, 1,0);
+        gpDesscuento.add(btntDescuento, 1,1);
+        gpDesscuento.setHgap(10);
+        gpDesscuento.setVgap(10);
         
         GridPane gpClienteSeleccionado = new GridPane();
         gpClienteSeleccionado.setPadding(new Insets(5, 5, 5, 5));
@@ -310,13 +482,6 @@ public class pantallaCrearVenta {
         gpClienteSeleccionado.add(tfCodigoCliente, 1, 0);
         gpClienteSeleccionado.add(lbNombre, 2, 0);
         gpClienteSeleccionado.add(tfNombre, 3, 0);
-         
-        GridPane gpDesscuento = new GridPane();
-        gpDesscuento.add(lbDescuento, 0,0);
-        gpDesscuento.add(tfdescuento, 1,0);
-        gpDesscuento.add(btntDescuento, 1,1);
-        gpDesscuento.setHgap(10);
-        gpDesscuento.setVgap(10);
         
         gpClienteSeleccionado.add(lbRazon_social, 0, 1);
         gpClienteSeleccionado.add(tfRazonSocial, 1, 1);
@@ -360,23 +525,38 @@ public class pantallaCrearVenta {
         Button btnBuscarProductos = new Button("Seleccionar");
         btnBuscarProductos.setMaxHeight(50);
         btnBuscarProductos.setOnAction((ActionEvent e)->{
+         List<inventario> lstInv = new ArrayList<>();
+         List<String> lstWherelc = new ArrayList<>();
          
           if (rbTodos.isSelected()){
+           lstWherelc.add("codigo_prod is not null");
+           tvInventario.setItems(invent.consultarInventario(lstWherelc));
            //String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvInventario.getItems().size())+" Seleccionados)";
          } 
          
          if (rbCodigo.isSelected()){
+           lstWhere.add("codigo_prod = "+tfCodigo.getText());
            //lstInv=invent.consultarInventario(lstWhere);
            //ObservableList obList = FXCollections.observableArrayList(lstInv);
+           tvInventario.setItems(invent.consultarInventario(lstWhere));
          }
          if (rbDescripcion.isSelected()){
              
+           lstWherelc.add("descripcion like '"+tfDescripcion.getText()+"%'");
            //lstInv=invent.consultarInventario(lstWhere);
            //ObservableList obList = FXCollections.observableArrayList(lstInv);
+           tvInventario.setItems(invent.consultarInventario(lstWherelc));
          }
          
          if (rbCategoria.isSelected()){
-           
+           lstWherecat.add("id_categoria is not null");  
+           for (categoria i : categDAO.consultarCategoria(lstWherecat)){
+             String strCategoria =  i.getCategoria();
+             if (strCategoria.compareTo(cbCategoria.getSelectionModel().getSelectedItem().toString())==0){
+                  lstWhere.add("id_categoria = "+i.getId_categoria());
+                  tvInventario.setItems(invent.consultarInventario(lstWhere));
+             }
+           }
          }
         });
         
@@ -456,12 +636,124 @@ public class pantallaCrearVenta {
             
             @Override
             public void handle(ActionEvent event) {
+                vbAreaTrabajo.getChildren().remove(0);
             }
         });
         
         Button btnGuardar = new Button("Registrar Venta");
         btnGuardar.setOnAction((event) -> {
-           
+           if (tfCodigoCliente.getText().length()>0){
+               if (!detventa.isEmpty()){
+                   if (!cbTipoVenta.getSelectionModel().isEmpty()){
+                       //System.out.println("Longitud Tipo Venta -->"+ cbTipoVenta.getValue().toString().length());
+                       if (tfFolio.getText().length()>0){
+                           VENTA vta = new VENTA();
+                           vta.setCodigo_cliente(Integer.parseInt(tfCodigoCliente.getText()));
+                           vta.setCodigo_factura(tfCodigoFactura.getText());
+                           vta.setCodigo_nota_venta(0);
+                           vta.setFecha(dpFecha.getValue().toString());
+                           if (tfCodigoFactura.getText().isEmpty() && cbTipoVenta.getValue().toString().compareTo("EFECTIVO")==0 )
+                               vta.setTipo_venta("REMISION "+cbTipoVenta.getValue().toString());
+                           else if (!tfCodigoFactura.getText().isEmpty() && cbTipoVenta.getValue().toString().compareTo("EFECTIVO")==0 )   
+                               vta.setTipo_venta("SISTEMA "+cbTipoVenta.getValue().toString());
+                           else vta.setTipo_venta(cbTipoVenta.getValue().toString());
+            
+                           notas_remision notaRem = new notas_remision();
+                           notaRem.setBandera(1);
+                           notaRem.setFecha(dpFecha.getValue().toString());
+                           notaRem.setFolio(tfFolio.getText());
+                           notaRem.setMonto(Float.parseFloat(lbMontoTotal.getText()));
+                           if (tfCodigoFactura.getText().isEmpty() && cbTipoVenta.getValue().toString().compareTo("EFECTIVO")==0 )
+                             notaRem.setTipo_operacion("REMISION "+cbTipoVenta.getValue().toString());
+                           else if (!tfCodigoFactura.getText().isEmpty() && cbTipoVenta.getValue().toString().compareTo("EFECTIVO")==0 )
+                             notaRem.setTipo_operacion("SISTEMA "+cbTipoVenta.getValue().toString());
+                           else notaRem.setTipo_operacion(cbTipoVenta.getValue().toString());
+            
+                           Credito cred = new Credito();
+                           cred.setBandera(1);
+                           cred.setCodigo_cliente(Integer.parseInt(tfCodigoCliente.getText()));
+                           cred.setMonto(Float.parseFloat(lbMontoTotal.getText()));
+                           cred.setFecha(dpFecha.getValue().toString());
+            
+                           apartado apart = new apartado();
+                           apart.setBandera(1);
+                           apart.setCodigo_cliente(Integer.parseInt(tfCodigoCliente.getText()));
+                           apart.setMonto(Float.parseFloat(lbMontoTotal.getText()));
+                           System.out.println("Monto Apartado: "+ apart.getMonto());
+                           apart.setFecha(dpFecha.getValue().toString());
+            
+                           VentaBO ventBo = new VentaBO();
+                           String strTipoVenta = cbTipoVenta.getSelectionModel().getSelectedItem().toString();
+                           if (strTipoVenta.compareTo("EFECTIVO")==0){
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: "+ldtUserActividad.toString());
+                                ventBo.guardarVenta(vta, notaRem, cred, apart, detventa, 0);
+                                Alert altMensaje = new Alert(Alert.AlertType.INFORMATION);
+                                altMensaje.setContentText("Venta en Efectivo Registrada");
+                                altMensaje.setTitle("Informacion-Venta");
+                                altMensaje.show();
+                            } // "Transferencia"
+                           if (strTipoVenta.compareTo("VENTA A CREDITO")==0){
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: "+ldtUserActividad.toString());
+                                   ventBo.guardarVenta(vta, notaRem, cred, apart, detventa, 1);
+                                   Alert altMensaje = new Alert(Alert.AlertType.INFORMATION);
+                                   altMensaje.setContentText("Venta a Credito Registrada");
+                                   altMensaje.setTitle("Informacion-Venta");
+                                   altMensaje.show();
+                            }            
+                            if (strTipoVenta.compareTo("APARTADO")==0){
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: "+ldtUserActividad.toString());
+                                  ventBo.guardarVenta(vta, notaRem, cred, apart, detventa, 2);
+                                  Alert altMensaje =new Alert(Alert.AlertType.INFORMATION);
+                                  altMensaje.setContentText("Venta en Apartado Registrada");
+                                  altMensaje.setTitle("Informacion-Venta");
+                                  altMensaje.show();
+                            } 
+                            if (strTipoVenta.compareTo("TARJETA")==0){
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: "+ldtUserActividad.toString());
+                                  ventBo.guardarVenta(vta, notaRem, cred, apart, detventa, 3);
+                                  Alert altMensaje =new Alert(Alert.AlertType.INFORMATION);
+                                  altMensaje.setContentText("Venta Con Tarjeta de credito Registrada");
+                                  altMensaje.setTitle("Informacion-Venta");
+                                  altMensaje.show();
+                            } 
+                            if (strTipoVenta.compareTo("TRANSFERENCIA")==0){
+                                    LocalDateTime ldtUserActividad = LocalDateTime.now();
+                                    System.out.println("Usuario:"+usrActivo.getNombre_completo()+"Fecha Hora: "+ldtUserActividad.toString());
+                                   ventBo.guardarVenta(vta, notaRem, cred, apart, detventa, 4);
+                                   Alert altMensaje =new Alert(Alert.AlertType.INFORMATION);
+                                   altMensaje.setContentText("Venta con Transferencia Registrada");
+                                   altMensaje.setTitle("Informacion-Venta");
+                                   altMensaje.show();
+                            }
+                            removerVistas( vbAreaTrabajo);
+                       }else{
+                        Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+                        MensajeError.setTitle("Error");
+                        MensajeError.setContentText("Falta Folio de Remision");
+                        MensajeError.show();             
+                       }
+                    }else{
+                        Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+                        MensajeError.setTitle("Error");
+                        MensajeError.setContentText("Falta Tipo de Venta");
+                        MensajeError.show();             
+                    }
+                }else{
+                        Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+                        MensajeError.setTitle("Error");
+                        MensajeError.setContentText("Falta Seleccionar Producto");
+                        MensajeError.show();             
+                }
+            }else {
+                    Alert MensajeError = new Alert(Alert.AlertType.ERROR);
+                    MensajeError.setTitle("Error");
+                    MensajeError.setContentText("Falta Seleccionar Cliente");
+                    MensajeError.show();
+            }
         });
         
         HBox hbBotonesInferiores = new HBox();
@@ -480,5 +772,102 @@ public class pantallaCrearVenta {
         
         return vbVistaPpal; 
     }
+
+    private void ventanaSeleccionarClientes(){
+           Stage stgPpal = new Stage();
+           TableView tvClientes = new TableView();
+
+            TableColumn<CLIENTE, String> codClientColumna = new TableColumn<>("Codigo Cliente");
+            codClientColumna.setMinWidth(120);
+            codClientColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_cliente"));
+
+            TableColumn<CLIENTE, String> nombreColumna = new TableColumn<>("Nombre");
+            nombreColumna.setMinWidth(320);
+            nombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+
+            TableColumn<CLIENTE, String> razonSocialColumna = new TableColumn<>("Razon Social");
+            razonSocialColumna.setMinWidth(320);
+            razonSocialColumna.setCellValueFactory(new PropertyValueFactory<>("razon_social"));
+
+            TableColumn<CLIENTE, String> domFiscalColumna = new TableColumn<>("Domicilio Fiscal");
+            domFiscalColumna.setMinWidth(320);
+            domFiscalColumna.setCellValueFactory(new PropertyValueFactory<>("domicilio_fiscal"));
+
+            TableColumn<CLIENTE, String> telefonoColumna = new TableColumn<>("Telefono");
+            telefonoColumna.setMinWidth(120);
+            telefonoColumna.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+
+            TableColumn<CLIENTE, String> rfcColumna = new TableColumn<>("RFC");
+            rfcColumna.setMinWidth(120);
+            rfcColumna.setCellValueFactory(new PropertyValueFactory<>("rfc"));
+
+            TableColumn<CLIENTE, String> emailColumna = new TableColumn<>("E-Mail");
+            emailColumna.setMinWidth(120);
+            emailColumna.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+            tvClientes.getColumns().addAll(codClientColumna, nombreColumna, razonSocialColumna, domFiscalColumna,
+                    telefonoColumna, rfcColumna, emailColumna);
+
+             List<CLIENTE> lstInv = new ArrayList<>();
+             List<String> lstWhere = new ArrayList<>();
+             lstWhere.add("codigo_cliente is not null");
+             lstInv=cliDAO.consultarClientes(lstWhere);
+             ObservableList obList = FXCollections.observableArrayList(lstInv);
+             tvClientes.setItems(obList);
+
+           stgPpal.setTitle("Seleccion del Cliente");
+
+           VBox vbPpal = new VBox();
+           vbPpal.setSpacing(5);
+
+           Button btnCancelar = new Button("Cancelar");
+           btnCancelar.setOnAction((ActionEvent e)->{
+               stgPpal.close();
+           });
+           Button btnSeleccionar = new Button("Seleccionar");
+           btnSeleccionar.setOnAction((ActionEvent e)->{
+               clIdent =(CLIENTE) tvClientes.getSelectionModel().getSelectedItem();
+               this.tfCodigoCliente.setText(String.valueOf(clIdent.getCodigo_cliente()));
+               this.tfNombre.setText(clIdent.getNombre());
+               this.tfDomicilioFiscal.setText(clIdent.getDomicilio_fiscal());
+               this.tfEmail.setText(clIdent.getEmail());
+               this.tfRFC.setText(clIdent.getRfc());
+               this.tfRazonSocial.setText(clIdent.getRazon_social());
+               this.tfTelefono.setText(clIdent.getTelefono());
+               stgPpal.close();
+           });
+
+           tvClientes.setOnKeyPressed((event) -> {
+               if (event.getCode()== KeyCode.ENTER){
+                   clIdent =(CLIENTE) tvClientes.getSelectionModel().getSelectedItem();
+                   this.tfCodigoCliente.setText(String.valueOf(clIdent.getCodigo_cliente()));
+                   this.tfNombre.setText(clIdent.getNombre());
+                   this.tfDomicilioFiscal.setText(clIdent.getDomicilio_fiscal());
+                   this.tfEmail.setText(clIdent.getEmail());
+                   this.tfRFC.setText(clIdent.getRfc());
+                   this.tfRazonSocial.setText(clIdent.getRazon_social());
+                   this.tfTelefono.setText(clIdent.getTelefono());
+                   stgPpal.close();
+               }
+           });
+           HBox hbBotones = new HBox();
+           hbBotones.setSpacing(5);
+           hbBotones.getChildren().addAll(btnCancelar, btnSeleccionar);
+
+           vbPpal.getChildren().addAll(tvClientes,hbBotones);
+
+           StackPane rootSelectClientes = new StackPane();
+           rootSelectClientes.getChildren().addAll(vbPpal);
+
+           Scene scene = new Scene(rootSelectClientes,320,470);
+           stgPpal.setScene(scene);
+           stgPpal.initModality(Modality.WINDOW_MODAL);
+           stgPpal.show();
+        }   
     
+    private void removerVistas(VBox vbAreaTrabajo){
+       if (vbAreaTrabajo.getChildren().size()>0){
+          vbAreaTrabajo.getChildren().remove(0);
+       }
+    }
 }

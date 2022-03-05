@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class PantallaAgregarProducto{
-    public static VBox vistaNuevoProducto(){
+    public static VBox vistaNuevoProducto(VBox areaTrabajo){
         List<String> lstProveedores = new ArrayList<>();
         
         VBox vbPpal= new VBox();
@@ -77,7 +77,10 @@ public class PantallaAgregarProducto{
         tfCodigo_prov.setMaxWidth(120);
         
         Button btnCancelar = new Button("Cancelar");
-
+        btnCancelar.setOnAction((event) -> {
+            areaTrabajo.getChildren().clear();
+        });
+       
         Button btnGuardar = new Button("Guardar");
 
         
@@ -87,7 +90,8 @@ public class PantallaAgregarProducto{
         
         HBox hbBotones = new HBox();
         hbBotones.setAlignment(Pos.CENTER_RIGHT);
-        hbBotones.getChildren().addAll(btnCancelar, btnGuardar);        
+        hbBotones.getChildren().addAll(btnCancelar, btnGuardar); 
+        
 
         GridPane gpPpal = new GridPane();
         gpPpal.setPadding(new Insets(5,5,5,5));
