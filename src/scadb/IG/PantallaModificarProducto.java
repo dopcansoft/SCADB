@@ -5,6 +5,8 @@
  */
 package scadb.IG;
 
+import DTO.categoria;
+import DTO.inventario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +32,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import scadb.DAO.categoriaDAO;
+import scadb.DAO.inventarioDAO;
 
 public class PantallaModificarProducto{
-      public static VBox vistaModificarProducto(){
+    
+categoriaDAO categDAO = new categoriaDAO();
+inventarioDAO invent = new inventarioDAO();
+
+
+public VBox vistaModificarProducto(VBox vbAreaTrabajo){
         VBox vbPpal= new VBox();
         int totalProductos = 0;
         Label lbTituloVista = new Label("MODIFICAR PRODUCTOS");
@@ -40,7 +49,7 @@ public class PantallaModificarProducto{
         lbTituloVista.setFont(fuente);
         Label lbTablaProducto = new Label("Productos");
 
-        TableView<String> tvProductos = new TableView();
+        TableView<inventario> tvProductos = new TableView();
         
          List<String> lstWhere = new ArrayList<>();
          lstWhere.add("codigo_prod is not null");
@@ -49,9 +58,9 @@ public class PantallaModificarProducto{
        lstCategorias.add("");
        List<String> lstWherecat = new ArrayList<>();
        lstWherecat.add("id_categoria is not null");
-//       for (categoria i : categDAO.consultarCategoria(lstWherecat)){
-//            lstCategorias.add(i.getCategoria());
-//       }
+       for (categoria i : categDAO.consultarCategoria(lstWherecat)){
+            lstCategorias.add(i.getCategoria());
+       }
         
         //Componentes de Interfaz--------------------------------------------------------------
         Label lbTipoBusqueda = new Label("Buscar por: ");
@@ -79,38 +88,38 @@ public class PantallaModificarProducto{
         HBox hbCompSeleccion = new HBox();
         Button btnBuscarProductos = new Button("Seleccionar");
         btnBuscarProductos.setMaxHeight(50);
-//        btnBuscarProductos.setOnAction((ActionEvent e)->{
-//         
-//         if (rbTodos.isSelected()){
-//           lstWhere.add("codigo_prod is not null");
-//           tvProductos.setItems(invent.consultarInventario(lstWhere));
-//           //String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
-//           //lbTituloVista.setText(titulo);
-//         }    
-//            
-//         if (rbCodigo.isSelected()){
-//           lstWhere.add("codigo_prod = "+tfCodigo.getText());
-//           tvProductos.setItems(invent.consultarInventario(lstWhere));
-//         }
-//         
-//         if (rbDescripcion.isSelected()){
-//           lstWhere.add("descripcion like '%"+tfBusquedaDescripcion.getText()+"%'");
-//           tvProductos.setItems(invent.consultarInventario(lstWhere));
-//         }
-//         
-//         if (rbCategoria.isSelected()){
-//             String strCat = cbCategoria.getValue().toString();
-//           if (strCat.compareTo("")==0){
-//                  lstWhere.add("id_categoria = 0");
-//                  tvProductos.setItems(invent.consultarInventario(lstWhere));
-//           }else{
-//              lstWhere.add("id_categoria ='"+categDAO.consultaIdCategoria(strCat)+"' ");
-//              tvProductos.setItems(invent.consultarInventario(lstWhere));
-//           }
-//         }
-//           String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
-//           lbTituloVista.setText(titulo);       
-//        });
+        btnBuscarProductos.setOnAction((ActionEvent e)->{
+         
+         if (rbTodos.isSelected()){
+           lstWhere.add("codigo_prod is not null");
+           tvProductos.setItems(invent.consultarInventario(lstWhere));
+           //String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
+           //lbTituloVista.setText(titulo);
+         }    
+            
+         if (rbCodigo.isSelected()){
+           lstWhere.add("codigo_prod = "+tfCodigo.getText());
+           tvProductos.setItems(invent.consultarInventario(lstWhere));
+         }
+         
+         if (rbDescripcion.isSelected()){
+           lstWhere.add("descripcion like '%"+tfBusquedaDescripcion.getText()+"%'");
+           tvProductos.setItems(invent.consultarInventario(lstWhere));
+         }
+         
+         if (rbCategoria.isSelected()){
+             String strCat = cbCategoria.getValue().toString();
+           if (strCat.compareTo("")==0){
+                  lstWhere.add("id_categoria = 0");
+                  tvProductos.setItems(invent.consultarInventario(lstWhere));
+           }else{
+              lstWhere.add("id_categoria ='"+categDAO.consultaIdCategoria(strCat)+"' ");
+              tvProductos.setItems(invent.consultarInventario(lstWhere));
+           }
+         }
+           String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
+           lbTituloVista.setText(titulo);       
+        });
         
         VBox vbCodigo = new VBox();
         VBox vbDesc = new VBox();
@@ -131,43 +140,43 @@ public class PantallaModificarProducto{
 
         tvProductos.setMaxHeight(320);
 
-        TableColumn<String, Integer> claveProdColumna = new TableColumn<>("Codigo Producto");
+        TableColumn<inventario, Integer> claveProdColumna = new TableColumn<>("Codigo Producto");
         claveProdColumna.setMinWidth(120);
         claveProdColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prod"));
 
-        TableColumn<String, Integer> existenciaColumna = new TableColumn<>("Existencia");
+        TableColumn<inventario, Integer> existenciaColumna = new TableColumn<>("Existencia");
         existenciaColumna.setMinWidth(120);
         existenciaColumna.setCellValueFactory(new PropertyValueFactory<>("existencia"));
         
-        TableColumn<String, Integer> idUbicacionColumna = new TableColumn<>("Id Ubicación");
+        TableColumn<inventario, Integer> idUbicacionColumna = new TableColumn<>("Id Ubicación");
         idUbicacionColumna.setMinWidth(120);
         idUbicacionColumna.setCellValueFactory(new PropertyValueFactory<>("id_ubicacion"));
         
-        TableColumn<String, Float> pMenudeoColumna = new TableColumn<>("Precio Menudeo");
+        TableColumn<inventario, Float> pMenudeoColumna = new TableColumn<>("Precio Menudeo");
         pMenudeoColumna.setMinWidth(120);
         pMenudeoColumna.setCellValueFactory(new PropertyValueFactory<>("precio_menudeo"));        
 
-        TableColumn<String, Float> pMayoreoColumna = new TableColumn<>("Precio Mayoreo");
+        TableColumn<inventario, Float> pMayoreoColumna = new TableColumn<>("Precio Mayoreo");
         pMayoreoColumna.setMinWidth(120);
         pMayoreoColumna.setCellValueFactory(new PropertyValueFactory<>("precio_mayoreo"));
         
-        TableColumn<String, String> descripcionColumna = new TableColumn<>("Descripción");
+        TableColumn<inventario, String> descripcionColumna = new TableColumn<>("Descripción");
         descripcionColumna.setMinWidth(120);
         descripcionColumna.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         
-        TableColumn<String, String> uMedidaColumna = new TableColumn<>("Unidad Medidad");
+        TableColumn<inventario, String> uMedidaColumna = new TableColumn<>("Unidad Medidad");
         uMedidaColumna.setMinWidth(120);
         uMedidaColumna.setCellValueFactory(new PropertyValueFactory<>("unidad_medida"));
 
-        TableColumn<String, Float> cCompraColumna = new TableColumn<>("Costo Compra");
+        TableColumn<inventario, Float> cCompraColumna = new TableColumn<>("Costo Compra");
         cCompraColumna.setMinWidth(120);
         cCompraColumna.setCellValueFactory(new PropertyValueFactory<>("costo_compra"));
         
-        TableColumn<String, Integer> codProvColumna = new TableColumn<>("Codigo Proveedor");
+        TableColumn<inventario, Integer> codProvColumna = new TableColumn<>("Codigo Proveedor");
         codProvColumna.setMinWidth(120);
         codProvColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prov"));
         
-        TableColumn<String, Integer> idCategoriaColumna = new TableColumn<>("id Categoria");
+        TableColumn<inventario, Integer> idCategoriaColumna = new TableColumn<>("id Categoria");
         idCategoriaColumna.setMinWidth(120);
         idCategoriaColumna.setCellValueFactory(new PropertyValueFactory<>("id_categoria"));
 
@@ -176,7 +185,7 @@ public class PantallaModificarProducto{
                 cCompraColumna, codProvColumna, idCategoriaColumna);
         
 
-//         tvProductos.setItems(invent.consultarInventario(lstWhere));
+         tvProductos.setItems(invent.consultarInventario(lstWhere));
          String titulo = lbTituloVista.getText()+" ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
          lbTituloVista.setText(titulo);
         
@@ -223,62 +232,62 @@ public class PantallaModificarProducto{
         tfCodigo_prov.setMaxWidth(120);
         
         Button btnCancelar = new Button("Cancelar");
-//        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
-//            
-////            @Override
-////            public void handle(ActionEvent event) {
-////                vbAreaTrabajo.getChildren().remove(0);
-////            }
-////        });
-//        
-////        tvProductos.setOnMouseClicked((event) -> {
-////            inventario inv= (inventario) tvProductos.getSelectionModel().getSelectedItem();
-////            tfDescripcion.setText(inv.getDescripcion());
-////            tfCodigo_prod.setText(String.valueOf(inv.getCodigo_prod()));
-////            tfCosto_compra.setText(String.valueOf(inv.getCosto_compra()));
-////            tfCodigo_prov.setText(String.valueOf(inv.getCodigo_prov()));
-////            tfExistencia.setText(String.valueOf(inv.getExistencia()));
-////            tfPrecio_menudeo.setText(String.valueOf(inv.getPrecio_menudeo()));
-////            tfPrecio_mayoreo.setText(String.valueOf(inv.getPrecio_mayoreo()));
-////            tfId_ubicacion.setText(String.valueOf(inv.getId_ubicacion()));
-////            tfUnidad_medida.setValue(inv.getUnidad_medida());
-////            
-////            if (inv.getId_categoria()==0){
-////               cbCategoriaMod.getSelectionModel().select(0); 
-////            }else {
-////                String strCategoria = categDAO.consultarCategoria(inv.getId_categoria());
-////                cbCategoriaMod.setValue(strCategoria);
-////            }
-////
-////        });
+        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                vbAreaTrabajo.getChildren().remove(0);
+            }
+        });
+        
+        tvProductos.setOnMouseClicked((event) -> {
+            inventario inv= (inventario) tvProductos.getSelectionModel().getSelectedItem();
+            tfDescripcion.setText(inv.getDescripcion());
+            tfCodigo_prod.setText(String.valueOf(inv.getCodigo_prod()));
+            tfCosto_compra.setText(String.valueOf(inv.getCosto_compra()));
+            tfCodigo_prov.setText(String.valueOf(inv.getCodigo_prov()));
+            tfExistencia.setText(String.valueOf(inv.getExistencia()));
+            tfPrecio_menudeo.setText(String.valueOf(inv.getPrecio_menudeo()));
+            tfPrecio_mayoreo.setText(String.valueOf(inv.getPrecio_mayoreo()));
+            tfId_ubicacion.setText(String.valueOf(inv.getId_ubicacion()));
+            tfUnidad_medida.setValue(inv.getUnidad_medida());
+            
+            if (inv.getId_categoria()==0){
+               cbCategoriaMod.getSelectionModel().select(0); 
+            }else {
+                String strCategoria = categDAO.consultarCategoria(inv.getId_categoria());
+                cbCategoriaMod.setValue(strCategoria);
+            }
+
+        });
         Button btnModificar = new Button("Modificar");
-//        btnModificar.setOnAction((ActionEvent e)->{
-//           inventarioDAO invDAO = new inventarioDAO();
-//           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//           alert.setHeaderText(null);
-//           alert.setTitle("Confirmación");
-//           alert.setContentText("¿Estas seguro de confirmar la acción?");
-//           Optional<ButtonType> action = alert.showAndWait(); 
-//           if (action.get() == ButtonType.OK) {
-//              inventario tempInv = (inventario) tvProductos.getSelectionModel().getSelectedItem();
-//              int intCategoria=tempInv.getId_categoria();
-//              if (cbCategoriaMod.getSelectionModel().getSelectedItem().toString().length()==0){
-//               intCategoria = 0;
-//              }else {
-//                  intCategoria = categDAO.consultaIdCategoria(cbCategoriaMod.getSelectionModel().getSelectedItem().toString());
-//                  System.out.println("Id Categoria: "+ intCategoria);
-//              }
-//              invDAO.modificarProducto(Integer.parseInt(tfCodigo_prod.getText()), Integer.parseInt(tfExistencia.getText()), 
-//                      Integer.parseInt(tfId_ubicacion.getText()), Float.parseFloat(tfPrecio_menudeo.getText()), 
-//                      Float.parseFloat(tfPrecio_mayoreo.getText()), tfDescripcion.getText(), 
-//                      tfUnidad_medida.getValue().toString(), Float.parseFloat(tfCosto_compra.getText()), 
-//                      Integer.parseInt(tfCodigo_prov.getText()), intCategoria);
-//              Alert resp = new Alert(Alert.AlertType.INFORMATION);
-//              resp.setTitle("Informacion");
-//              resp.setContentText("Se actualizaron los datos ");
-//              resp.showAndWait();
-//           } 
-//        });
+        btnModificar.setOnAction((ActionEvent e)->{
+           inventarioDAO invDAO = new inventarioDAO();
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setHeaderText(null);
+           alert.setTitle("Confirmación");
+           alert.setContentText("¿Estas seguro de confirmar la acción?");
+           Optional<ButtonType> action = alert.showAndWait(); 
+           if (action.get() == ButtonType.OK) {
+              inventario tempInv = (inventario) tvProductos.getSelectionModel().getSelectedItem();
+              int intCategoria=tempInv.getId_categoria();
+              if (cbCategoriaMod.getSelectionModel().getSelectedItem().toString().length()==0){
+               intCategoria = 0;
+              }else {
+                  intCategoria = categDAO.consultaIdCategoria(cbCategoriaMod.getSelectionModel().getSelectedItem().toString());
+                  System.out.println("Id Categoria: "+ intCategoria);
+              }
+              invDAO.modificarProducto(Integer.parseInt(tfCodigo_prod.getText()), Integer.parseInt(tfExistencia.getText()), 
+                      Integer.parseInt(tfId_ubicacion.getText()), Float.parseFloat(tfPrecio_menudeo.getText()), 
+                      Float.parseFloat(tfPrecio_mayoreo.getText()), tfDescripcion.getText(), 
+                      tfUnidad_medida.getValue().toString(), Float.parseFloat(tfCosto_compra.getText()), 
+                      Integer.parseInt(tfCodigo_prov.getText()), intCategoria);
+              Alert resp = new Alert(Alert.AlertType.INFORMATION);
+              resp.setTitle("Informacion");
+              resp.setContentText("Se actualizaron los datos ");
+              resp.showAndWait();
+           } 
+        });
         HBox hbBotones = new HBox();
         hbBotones.setAlignment(Pos.CENTER_RIGHT);
         hbBotones.getChildren().addAll(btnCancelar, btnModificar);        
@@ -313,4 +322,5 @@ public class PantallaModificarProducto{
         return vbPpal;
     
     }
+        
 }

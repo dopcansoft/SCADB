@@ -5,6 +5,8 @@
  */
 package scadb.IG;
 
+import DTO.categoria;
+import DTO.inventario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +32,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import scadb.DAO.categoriaDAO;
+import scadb.DAO.inventarioDAO;
 
 public class PantallaEliminarProducto{
-  public static VBox vistaEliminarProducto(){
+    
+    inventarioDAO invent = new inventarioDAO();
+    categoriaDAO categDAO = new categoriaDAO();
+    
+public VBox vistaEliminarProducto(VBox vbAreaTrabajo){
         VBox vbPpal= new VBox();
         Label lbTituloVista = new Label("ELIMINAR PRODUCTOS");
         Font fuente = new Font("Arial Bold", 36);
@@ -46,9 +54,9 @@ public class PantallaEliminarProducto{
         lstCategorias.add("");
         List<String> lstWherecat = new ArrayList<>();
         lstWherecat.add("id_categoria is not null");
-//       for (categoria i : categDAO.consultarCategoria(lstWherecat)){
-//            lstCategorias.add(i.getCategoria());
-//       }
+       for (categoria i : categDAO.consultarCategoria(lstWherecat)){
+            lstCategorias.add(i.getCategoria());
+       }
         //Componentes de Interfaz--------------------------------------------------------------
         Label lbTipoBusqueda = new Label("Buscar por: ");
         
@@ -76,35 +84,35 @@ public class PantallaEliminarProducto{
         Button btnBuscarProductos = new Button("Seleccionar");
         btnBuscarProductos.setMaxHeight(50);
         btnBuscarProductos.setOnAction((ActionEvent e)->{
-//         
-//         if (rbTodos.isSelected()){
-//           lstWhere.add("codigo_prod is not null");
-//           tvProductos.setItems(invent.consultarInventario(lstWhere));
-//         }    
-//            
-//         if (rbCodigo.isSelected()){
-//           lstWhere.add("codigo_prod = "+tfCodigo.getText());
-//           tvProductos.setItems(invent.consultarInventario(lstWhere));
-//         }
-//         
-//         if (rbDescripcion.isSelected()){
-//           lstWhere.add("descripcion like '%"+tfBusquedaDescripcion.getText()+"%' ");
-//           tvProductos.setItems(invent.consultarInventario(lstWhere));
-//         }
-//         
-//         if (rbCategoria.isSelected()){
-//           String strCat = cbCategoria.getValue().toString();
-//           if (strCat.compareTo("")==0){
-//                  lstWhere.add("id_categoria = 0");
-//                  tvProductos.setItems(invent.consultarInventario(lstWhere));
-//           }else{
-//              lstWhere.add("id_categoria ='"+categDAO.consultaIdCategoria(strCat)+"' ");
-//              tvProductos.setItems(invent.consultarInventario(lstWhere));
-//           }
-//         }
-//
-//           String titulo = "ELIMINAR PRODUCTOS ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
-//           lbTituloVista.setText(titulo);
+         
+         if (rbTodos.isSelected()){
+           lstWhere.add("codigo_prod is not null");
+           tvProductos.setItems(invent.consultarInventario(lstWhere));
+         }    
+            
+         if (rbCodigo.isSelected()){
+           lstWhere.add("codigo_prod = "+tfCodigo.getText());
+           tvProductos.setItems(invent.consultarInventario(lstWhere));
+         }
+         
+         if (rbDescripcion.isSelected()){
+           lstWhere.add("descripcion like '%"+tfBusquedaDescripcion.getText()+"%' ");
+           tvProductos.setItems(invent.consultarInventario(lstWhere));
+         }
+         
+         if (rbCategoria.isSelected()){
+           String strCat = cbCategoria.getValue().toString();
+           if (strCat.compareTo("")==0){
+                  lstWhere.add("id_categoria = 0");
+                  tvProductos.setItems(invent.consultarInventario(lstWhere));
+           }else{
+              lstWhere.add("id_categoria ='"+categDAO.consultaIdCategoria(strCat)+"' ");
+              tvProductos.setItems(invent.consultarInventario(lstWhere));
+           }
+         }
+
+           String titulo = "ELIMINAR PRODUCTOS ("+String.valueOf(tvProductos.getItems().size())+" Seleccionados)";
+           lbTituloVista.setText(titulo);
         });
         
         VBox vbCodigo = new VBox();
@@ -125,43 +133,43 @@ public class PantallaEliminarProducto{
         hbTipoSeleccion.setSpacing(5);
         
         
-        TableColumn<String, Integer> claveProdColumna = new TableColumn<>("Codigo Producto");
+        TableColumn<inventario, Integer> claveProdColumna = new TableColumn<>("Codigo Producto");
         claveProdColumna.setMinWidth(120);
         claveProdColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prod"));
 
-        TableColumn<String, Integer> existenciaColumna = new TableColumn<>("Existencia");
+        TableColumn<inventario, Integer> existenciaColumna = new TableColumn<>("Existencia");
         existenciaColumna.setMinWidth(120);
         existenciaColumna.setCellValueFactory(new PropertyValueFactory<>("existencia"));
         
-        TableColumn<String, Integer> idUbicacionColumna = new TableColumn<>("Id Ubicación");
+        TableColumn<inventario, Integer> idUbicacionColumna = new TableColumn<>("Id Ubicación");
         idUbicacionColumna.setMinWidth(120);
         idUbicacionColumna.setCellValueFactory(new PropertyValueFactory<>("id_ubicacion"));
         
-        TableColumn<String, Float> pMenudeoColumna = new TableColumn<>("Precio Menudeo");
+        TableColumn<inventario, Float> pMenudeoColumna = new TableColumn<>("Precio Menudeo");
         pMenudeoColumna.setMinWidth(120);
         pMenudeoColumna.setCellValueFactory(new PropertyValueFactory<>("precio_menudeo"));        
 
-        TableColumn<String, Float> pMayoreoColumna = new TableColumn<>("Precio Mayoreo");
+        TableColumn<inventario, Float> pMayoreoColumna = new TableColumn<>("Precio Mayoreo");
         pMayoreoColumna.setMinWidth(120);
         pMayoreoColumna.setCellValueFactory(new PropertyValueFactory<>("precio_mayoreo"));
         
-        TableColumn<String, String> descripcionColumna = new TableColumn<>("Descripción");
+        TableColumn<inventario, String> descripcionColumna = new TableColumn<>("Descripción");
         descripcionColumna.setMinWidth(120);
         descripcionColumna.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         
-        TableColumn<String, String> uMedidaColumna = new TableColumn<>("Unidad Medidad");
+        TableColumn<inventario, String> uMedidaColumna = new TableColumn<>("Unidad Medidad");
         uMedidaColumna.setMinWidth(120);
         uMedidaColumna.setCellValueFactory(new PropertyValueFactory<>("unidad_medida"));
 
-        TableColumn<String, Float> cCompraColumna = new TableColumn<>("Costo Compra");
+        TableColumn<inventario, Float> cCompraColumna = new TableColumn<>("Costo Compra");
         cCompraColumna.setMinWidth(120);
         cCompraColumna.setCellValueFactory(new PropertyValueFactory<>("costo_compra"));
         
-        TableColumn<String, Integer> codProvColumna = new TableColumn<>("Codigo Proveedor");
+        TableColumn<inventario, Integer> codProvColumna = new TableColumn<>("Codigo Proveedor");
         codProvColumna.setMinWidth(120);
         codProvColumna.setCellValueFactory(new PropertyValueFactory<>("codigo_prov"));
         
-        TableColumn<String, Integer> idCategoriaColumna = new TableColumn<>("Id Categoria");
+        TableColumn<inventario, Integer> idCategoriaColumna = new TableColumn<>("Id Categoria");
         idCategoriaColumna.setMinWidth(120);
         idCategoriaColumna.setCellValueFactory(new PropertyValueFactory<>("id_categoria"));
         
@@ -169,9 +177,9 @@ public class PantallaEliminarProducto{
                 pMenudeoColumna, pMayoreoColumna, descripcionColumna, uMedidaColumna, 
                 cCompraColumna, codProvColumna,idCategoriaColumna);
         
-         List<String> lstInv = new ArrayList<>();
+         List<inventario> lstInv = new ArrayList<>();
          lstWhere.add("codigo_prod is not null");
-//         lstInv=invent.consultaInventario(lstWhere);
+         lstInv=invent.consultaInventario(lstWhere);
          ObservableList obList = FXCollections.observableArrayList(lstInv);
          tvProductos.setItems(obList);
          String titulo = lbTituloVista.getText()+" ("+String.valueOf(obList.size())+")";
@@ -224,42 +232,43 @@ public class PantallaEliminarProducto{
 	TextField tfCodigo_prov = new TextField();
         tfCodigo_prov.setMaxWidth(120);
         tfCodigo_prov.setEditable(false);
-       Button btnCancelar = new Button("Cancelar");
-//        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                vbAreaTrabajo.getChildren().remove(0);
-//            }
-//        });
+        
+        Button btnCancelar = new Button("Cancelar");
+        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                vbAreaTrabajo.getChildren().remove(0);
+            }
+        });
 
         tvProductos.setOnMouseClicked((event) -> {
-//            inventario inv= (inventario) tvProductos.getSelectionModel().getSelectedItem();
-//            tfDescripcion.setText(inv.getDescripcion());
-//            tfCodigo_prod.setText(String.valueOf(inv.getCodigo_prod()));
-//            tfCosto_compra.setText(String.valueOf(inv.getCosto_compra()));
-//            tfCodigo_prov.setText(String.valueOf(inv.getCodigo_prov()));
-//            tfExistencia.setText(String.valueOf(inv.getExistencia()));
-//            tfPrecio_menudeo.setText(String.valueOf(inv.getPrecio_menudeo()));
-//            tfPrecio_mayoreo.setText(String.valueOf(inv.getPrecio_mayoreo()));
-//            tfId_ubicacion.setText(String.valueOf(inv.getId_ubicacion()));
-//            tfUnidad_medida.setValue(inv.getUnidad_medida());
+            inventario inv= (inventario) tvProductos.getSelectionModel().getSelectedItem();
+            tfDescripcion.setText(inv.getDescripcion());
+            tfCodigo_prod.setText(String.valueOf(inv.getCodigo_prod()));
+            tfCosto_compra.setText(String.valueOf(inv.getCosto_compra()));
+            tfCodigo_prov.setText(String.valueOf(inv.getCodigo_prov()));
+            tfExistencia.setText(String.valueOf(inv.getExistencia()));
+            tfPrecio_menudeo.setText(String.valueOf(inv.getPrecio_menudeo()));
+            tfPrecio_mayoreo.setText(String.valueOf(inv.getPrecio_mayoreo()));
+            tfId_ubicacion.setText(String.valueOf(inv.getId_ubicacion()));
+            tfUnidad_medida.setValue(inv.getUnidad_medida());
         });
         
         Button btnEliminar = new Button("Eliminar");
         btnEliminar.setOnAction((ActionEvent e)->{
-//           inventarioDAO invDAO = new inventarioDAO();
-//           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//           alert.setHeaderText(null);
-//           alert.setTitle("Confirmación");
-//           alert.setContentText("¿Estas seguro de confirmar la acción?");
-//           Optional<ButtonType> action = alert.showAndWait(); 
-//           if (action.get() == ButtonType.OK) {
-//            invDAO.EliminarLogicamenteProducto(Integer.parseInt(tfCodigo_prod.getText()));
-//            removerVistas();
-//           } else {
-//            removerVistas();
-//           }
+           inventarioDAO invDAO = new inventarioDAO();
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setHeaderText(null);
+           alert.setTitle("Confirmación");
+           alert.setContentText("¿Estas seguro de confirmar la acción?");
+           Optional<ButtonType> action = alert.showAndWait(); 
+           if (action.get() == ButtonType.OK) {
+            invDAO.EliminarLogicamenteProducto(Integer.parseInt(tfCodigo_prod.getText()));
+            removerVistas(vbAreaTrabajo);
+           } else {
+            removerVistas(vbAreaTrabajo);
+           }
         });
         
         
@@ -295,6 +304,11 @@ public class PantallaEliminarProducto{
         vbPpal.getChildren().addAll(lbTituloVista, hbTipoSeleccion, hbCompSeleccion, tvProductos, gpPpal);
         return vbPpal;
     
+    }
+    private void removerVistas(VBox vbAreaTrabajo){
+       if (vbAreaTrabajo.getChildren().size()>0){
+          vbAreaTrabajo.getChildren().remove(0);
+       }
     }
     
     }
