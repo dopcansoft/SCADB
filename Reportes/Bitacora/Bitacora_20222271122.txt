@@ -1,0 +1,52 @@
+Estableciendo conexion ..
+SELECT id_usuario, nombre_completo, tipo, usuario, clave FROM usuario where flag != 3 AND usuario = 'SuperUser' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT codigo_prov, nombre, telefono FROM PROVEEDOR where flag !=3 AND codigo_prov is not null
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where flag != 3 AND id_categoria is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov, id_categoria FROM inventario where flag != 3 AND codigo_prod is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where id_categoria = 1003
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where id_categoria = 1003
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where flag != 3 AND id_categoria is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod is not null AND codigo_prod is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where flag != 3 AND id_categoria is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov, id_categoria FROM inventario where flag != 3 AND codigo_prod is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_traspaso, fecha, tienda_traspaso, responsable_tienda_envia, responsable_tienda_recibe, responsable_transportar_prod, flag FROM traspaso where flag !=3 and fecha = '2022-02-27' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_traspaso, fecha, tienda_traspaso, responsable_tienda_envia, responsable_tienda_recibe, responsable_transportar_prod, flag FROM traspaso where flag !=3 and fecha = '2021-10-06' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_traspaso, fecha, tienda_traspaso, responsable_tienda_envia, responsable_tienda_recibe, responsable_transportar_prod, flag FROM traspaso where flag !=3 and fecha = '2021-10-01' 
+Estableciendo conexion ..
+Connection to SQLite has been established.

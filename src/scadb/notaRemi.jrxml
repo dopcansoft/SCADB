@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cotizacion" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5c59f63-17db-4ecf-865d-2666227a449f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="141"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dtCotizacion" uuid="72ab049d-180a-415f-b266-7a91f5abcfa3">
+		<field name="codigo_prod" class="java.lang.Integer"/>
+		<field name="descrprod" class="java.lang.String"/>
+		<field name="cantidad" class="java.lang.Integer"/>
+		<field name="precio_venta" class="java.lang.Float"/>
+		<field name="subTotal" class="java.lang.Float"/>
+	</subDataset>
+	<parameter name="ItemsDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="total" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="251" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="12" width="82" height="68" uuid="e4fafa14-03a6-4cda-9479-648d4eb464d3"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.5" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIENDAS PLAMAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="142" width="142" height="19" uuid="56225810-8ec4-4398-bf25-4236d6bcdbaa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA DE PEDIDO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="173" width="82" height="16" uuid="edfffe88-1b61-45ef-8c31-f46690f7d4dd"/>
+				<text><![CDATA[Veracruz Ver. A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="189" width="82" height="16" uuid="eb61b010-1f4c-4c6a-a7d0-0f0076c736a3"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="205" width="82" height="16" uuid="7bdfbd00-2b8e-40f8-a6cf-b13c61d39fdf"/>
+				<text><![CDATA[Direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="221" width="82" height="16" uuid="6df37899-e6da-40e5-a80f-1fada3726cb8"/>
+				<text><![CDATA[Ciudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="144" width="142" height="19" uuid="f5880c4c-b0e3-4de7-8d82-d2f31679a6d9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA DE PEDIDO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="189" width="82" height="16" uuid="46a9e13e-29f2-4b9c-93b3-8067db3f17a5"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="173" width="82" height="16" uuid="5d620bd6-10d6-42b6-803d-e669d1883861"/>
+				<text><![CDATA[Veracruz Ver. A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="205" width="82" height="16" uuid="b3309c37-0781-4857-96cb-5f24c79766be"/>
+				<text><![CDATA[Direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="12" width="82" height="68" uuid="a57fc780-bc86-4496-99c5-b9a16c18d5e7"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.5" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIENDAS PLAMAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="221" width="82" height="16" uuid="3e5ab52a-17c4-4a43-88b2-8d66cab6ab69"/>
+				<text><![CDATA[Ciudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="143" width="100" height="20" forecolor="#640000" uuid="e3c2d1e0-0888-4375-8ee5-af52b62757cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[V 5547]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="591" y="143" width="100" height="20" forecolor="#640000" uuid="4bdd1896-84e5-4156-adc4-fb8bfa45bd51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[V 5547]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="48" width="279" height="15" uuid="6ef9950e-59d8-4110-b79d-d21f644df109"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[COL.DEL MAESTRO C.P.91920]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="64" width="279" height="15" uuid="655da690-7051-40c4-99c6-7bbed9f261e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[TEL.01 (229) 920 33 65 VERACRUZ.VER.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="33" width="279" height="16" uuid="21803ea4-99ce-4073-979b-f33e84d694c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[PROLONGACION DIAZ MIRON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="93" width="279" height="15" uuid="3f8d7362-3138-4d78-b78e-07035d0c1043"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[plamar_ver13@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="78" width="279" height="15" uuid="48d17f0d-d869-4702-83eb-411967cd3bc5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[http://www.plasticosplamar.com/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="47" width="279" height="15" uuid="aba21a6a-a6d4-4d1e-840b-e97904e3448a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[COL.DEL MAESTRO C.P.91920]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="92" width="279" height="15" uuid="8795865f-dcae-4444-9882-75af8baf2fd6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[plamar_ver13@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="63" width="279" height="15" uuid="264e59a9-7b43-440a-9e2b-e49215f7cb10"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[TEL.01 (229) 920 33 65 VERACRUZ.VER.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="32" width="279" height="16" uuid="128c1861-f334-4d9c-bcc4-737dcc3185f8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[PROLONGACION DIAZ MIRON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="77" width="279" height="15" uuid="c0e7eb0d-0fcb-4ac3-bec8-e7fcf4a5e863"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[http://www.plasticosplamar.com/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="5" width="279" height="29" uuid="aecacbc7-9824-465c-b3a5-bfd6d43ab8dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLAMAR DISTRIBUIDORA DE PLASTICOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="3" width="279" height="29" uuid="9dca079e-139c-444b-aa4c-090a26a7882c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLAMAR DISTRIBUIDORA DE PLASTICOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="300" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="4" y="9" width="573" height="265" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="0be106ba-c34b-4389-9dc8-16469f42e171"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dtCotizacion" uuid="e1eaa135-d711-4ed7-b817-e98e072639e4">
+						<dataSourceExpression><![CDATA[$P{ItemsDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="a59c1b47-c6a4-4a9f-a4d8-d48d078b623c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="c724e950-d09b-4b8e-9bd6-5c256210d3c0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[CODIGO PRODUCTO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="53e55a4e-0f34-4a87-9cb8-499fea54fa6f"/>
+								<textFieldExpression><![CDATA[$F{codigo_prod}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="210" uuid="6ccc2f4d-1590-43b2-8f22-9bee27fd916c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="210" height="30" uuid="cf293836-cdc8-4f3a-82c9-3ee177bb8aa3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCRIPCION]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="210" height="20" uuid="c6412fd1-f638-4a06-84aa-a29c4d78f71e"/>
+								<textFieldExpression><![CDATA[$F{descrprod}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="912a5eee-c737-477b-93eb-f6a2de333283">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="9c080e40-4108-4060-943a-4b8e8dc697d6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[CANTIDAD]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="db8f5545-204b-4a4d-9149-78c34f964ec2"/>
+								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6c11107b-4a26-4e4b-8572-26f93f0bc5d6">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="84a2d874-7267-456b-8122-33161944924f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRECIO VENTA]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="5437a3ff-bcff-46ec-90c9-1acf78945766"/>
+								<textFieldExpression><![CDATA[$F{precio_venta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1a5d32d9-35ff-403e-81ac-8a8e9b4c2ed4">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="6714bdc5-b971-4008-a8ae-cfb47dd89617"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[SUB-TOTAL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="773b5858-e5e5-40ea-978e-f1194cf7678b"/>
+								<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement x="478" y="274" width="100" height="20" uuid="ba2e61b4-c74a-4958-827b-4715313fd1af"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="392" y="274" width="86" height="20" uuid="34351a37-19e4-44e3-b090-809441d1f87c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL $]]></text>
+			</staticText>
+			<elementGroup/>
+		</band>
+	</detail>
+</jasperReport>

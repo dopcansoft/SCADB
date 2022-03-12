@@ -1,0 +1,738 @@
+Estableciendo conexion ..
+SELECT id_usuario, nombre_completo, tipo, usuario, clave FROM usuario where flag != 3 AND usuario = 'SuperUser' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where flag != 3 AND id_categoria is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov, id_categoria FROM inventario where flag != 3 AND codigo_prod is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_categoria, categoria, parent_id FROM categoria where flag != 3 AND id_categoria is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov, id_categoria FROM inventario where flag != 3 AND codigo_prod is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-08-21' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-08-12' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-08-09' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-07-15' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-07-14' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-07-13' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-07-12' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-07-29' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10506
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10532
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201451
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10507
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10533
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201257
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10508
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10534
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200657
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200773
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10509
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10535
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200881
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201495
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200769
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10508
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10534
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200657
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200773
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10507
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10533
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201257
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10508
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10534
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200657
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200773
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10509
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10535
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200881
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201495
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200769
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123488
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10510
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10536
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200329
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200615
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10511
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10537
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200190
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123488
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10510
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10536
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200329
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200615
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10511
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10537
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200190
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10512
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10538
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200121
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10513
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10539
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200810
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200809
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10514
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10540
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200098
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201408
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10513
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10539
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200810
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200809
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10514
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10540
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200098
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 201408
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123486
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10515
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10541
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200880
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200319
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200881
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200255
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123473
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10516
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10542
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200255
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente = 123486
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND id_nota_rem = 10515
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_detalle_venta, codigo_prod, descrprod, cantidad, codigo_nota_venta, precio_venta FROM detalle_venta where flag != 3 AND codigo_nota_venta = 10541
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200880
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200319
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200881
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_prod, existencia, id_ubicacion, precio_menudeo, precio_mayoreo, descripcion, unidad_medida, costo_compra, codigo_prov FROM inventario where flag != 3 AND codigo_prod = 200255
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-07-29' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-07-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-07-29' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-07-29' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-07-28' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-07-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-07-28' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-07-28' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-07-27' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-07-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-07-27' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-07-27' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-07-01' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-07-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-07-01' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-07-01' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-06-30' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-06-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-06-30' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-06-30' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-05-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-05-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-05-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-05-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-04-30' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-04-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-04-30' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-04-30' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-03-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-03-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-03-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-03-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-02-28' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-02-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-02-28' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-02-28' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_gasto, concepto, fecha, monto, flag FROM gastos where flag != 3 AND fecha = '2021-01-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where fecha = ? AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+select * from VENTA vt1 
+left join notas_remision vt2 
+on vt1.id_nota_rem = vt2.id_nota_rem 
+LEFT JOIN CLIENTE VT3 ON 
+vt1.codigo_cliente = vt3.codigo_cliente where vt1.fecha = ? AND vt1.flag !=3 AND vt2.flag !=3 AND vt1.tipo_venta <> 'APARTADO'  order by vt1.tipo_venta
+Fecha 1:->2021-01-01
+Estableciendo conexion ..
+Estableciendo conexion ..
+Connection to SQLite has been established.
+SELECT tipo_operacion, sum(monto) as total from notas_remision where date(fecha) between date(?) and date(?) AND flag !=3 AND tipo_operacion <> 'APARTADO' group by tipo_operacion;
+Estableciendo conexion ..
+SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and fecha = '2021-01-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and fecha = '2021-01-31' 
+Estableciendo conexion ..
+Connection to SQLite has been established.

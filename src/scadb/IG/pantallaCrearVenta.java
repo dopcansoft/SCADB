@@ -16,13 +16,17 @@ import DTO.detalle_venta;
 import DTO.inventario;
 import DTO.notas_remision;
 import DTO.usuario;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -46,12 +50,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 import scadb.DAO.bitacora_precioDAO;
 import scadb.DAO.categoriaDAO;
 import scadb.DAO.clienteDAO;
@@ -756,9 +770,65 @@ public class pantallaCrearVenta {
             }
         });
         
+        Button btnCrearNotaRemision = new Button("Generar Nota Remision");
+                btnCrearNotaRemision.setOnAction((event) -> {
+                  try{
+
+                   /* User home directory location */
+                   // String userHomeDirectory = System.getProperty("user.home");
+                    /* Output file location */
+
+                    File file;
+                    JasperReport jasperReport;
+                    file = new File("Reportes/Formatos/notaRemi.jasper");
+                    jasperReport = (JasperReport) JRLoader.loadObject(file);
+                    LocalDateTime ld = LocalDateTime.now();
+                    String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());
+                    //String outputFile = userHomeDirectory + File.separatorChar + "ReporteInventario"+fechaFile+".pdf";
+                    String outputFile = "Reportes/NotasRemision/" + File.separatorChar + "NotaRemision"+fechaFile+".pdf";
+                   //JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductos.getItems().subList(0, tvProductos.getItems().size()-1));
+                   JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductosSelecc.getItems());
+                   System.out.println("Hay "+tvProductosSelecc.getItems().size());
+                   Map<String, Object> parameters = new HashMap<>();
+                   parameters.put("ItemsDataSource", itemsJRBean);
+                   float total = Float.valueOf(lbMontoTotal.getText());
+                   parameters.put("total", total);
+                   //parameters.put("Fecha", LocalDate.now().toString());
+                   /* Generando el PDF */
+                    //C:\Users\dopcan\Documents\NetBeansProjects\ClasesConsultorio\src\gestionconsultorio
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+                    JRViewer jrViewer;
+                    JPanel jpanel;
+                    SwingNode swingNode;
+                    jpanel = new JPanel();
+                    swingNode = new SwingNode();
+                    jrViewer = new JRViewer(jasperPrint);
+                    jrViewer.setBounds(0, 0, 1200, 800);
+                    jpanel.setLayout(null);
+                    jpanel.add(jrViewer);
+                    jpanel.setSize(1200, 800);
+                    Pane panePreview = new Pane(); 
+                    panePreview.setPrefSize(1200, 800);
+                    panePreview.getChildren().add(swingNode);
+                    swingNode.setContent(jpanel);
+
+                    StackPane rootSelectClientes = new StackPane();
+                    rootSelectClientes.getChildren().addAll(swingNode);
+
+                    Scene scene = new Scene(rootSelectClientes,1200,800);
+                    Stage stgPpal = new Stage();
+                    stgPpal.setScene(scene);
+                    stgPpal.initModality(Modality.WINDOW_MODAL);
+                    stgPpal.show();  
+                } catch (JRException ex) {
+                    ex.printStackTrace();
+                }             
+                });
+
         HBox hbBotonesInferiores = new HBox();
         hbBotonesInferiores.setAlignment(Pos.CENTER_RIGHT);
-        hbBotonesInferiores.getChildren().addAll(btnCancelar, btnGuardar);
+        hbBotonesInferiores.getChildren().addAll(btnCancelar, btnGuardar, btnCrearNotaRemision);
+        hbBotonesInferiores.setSpacing(10);
         
         VBox vbTabProducto = new VBox();
         vbTabProducto.setSpacing(5);

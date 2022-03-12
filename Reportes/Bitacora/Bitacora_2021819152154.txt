@@ -1,0 +1,22 @@
+Estableciendo conexion ..
+SELECT id_usuario, nombre_completo, tipo, usuario, clave FROM usuario where flag != 3 AND usuario = 'SuperUser' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_suc, nombre, direccion FROM SUCURSAL where flag != 3 AND id_suc = 1
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+UPDATE SUCURSAL SET nombre = ?, direccion = ?, flag= ?WHERE id_suc=?Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+UPDATE SUCURSAL SET nombre = ?, direccion = ?, flag= ?WHERE id_suc=?Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_suc, nombre, direccion FROM SUCURSAL where flag != 3 AND id_suc = 1
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_nota_venta, fecha, tipo_venta, codigo_cliente, codigo_factura, id_nota_rem FROM VENTA where flag != 3 and fecha = '2021-08-01' 
+Estableciendo conexion ..
+Connection to SQLite has been established.

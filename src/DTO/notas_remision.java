@@ -15,6 +15,7 @@ public class notas_remision {
 	private String tipo_operacion;
 	private float monto;
         private int bandera;
+        private  float  descuento;
 
     public int getId_nota_rem() {
         return id_nota_rem;
@@ -63,5 +64,15 @@ public class notas_remision {
     public void setBandera(int bandera) {
         this.bandera = bandera;
     }
+
+    public float getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
+    }
+    
+    
         
 }//end notas_remision

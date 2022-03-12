@@ -1,0 +1,28 @@
+Estableciendo conexion ..
+SELECT id_usuario, nombre_completo, tipo, usuario, clave FROM usuario where flag != 3 AND usuario = 'SuperUser' 
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT codigo_cliente, nombre, razon_social, domicilio_fiscal, telefono, rfc, email FROM CLIENTE where flag != 3 AND codigo_cliente is not null
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_credito, fecha, codigo_cliente, codigo_nota_venta, monto FROM Credito where flag != 3 AND codigo_cliente = 123475
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_credito, fecha, codigo_cliente, codigo_nota_venta, monto FROM Credito where flag != 3 AND codigo_cliente = 123477
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and id_credito = 84
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and id_credito = 108
+Estableciendo conexion ..
+Connection to SQLite has been established.
+Estableciendo conexion ..
+SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and id_credito = 134
+Estableciendo conexion ..
+Connection to SQLite has been established.
