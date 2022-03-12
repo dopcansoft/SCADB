@@ -79,6 +79,7 @@ public class pantallaCrearVenta {
     
    TextField tfCodigoCliente = new TextField();
    TextField tfNombre = new TextField();
+   TextField tfCdSucursal = new TextField();
    TextField tfRazonSocial = new TextField();
    TextField tfDomicilioFiscal= new TextField();
    TextField tfTelefono = new TextField();
@@ -86,10 +87,14 @@ public class pantallaCrearVenta {
    TextField tfEmail = new TextField();
    TextField tfdescuento = new TextField();
    Label lbDescuento = new Label();
+   Label lbCdSucursal = new Label("Cd. Suc.");
    Button btntDescuento = new Button();
+   Label lbCanDescuento = new Label();
+   HBox botonDescuento = new HBox();
+   
   
     float MontoTotal = 0.0f;
-    float Descuento = 10.0f;
+    float Descuento = 0.0f;
    float MontoOriginal = 0.0f;
    
    usuario usrActivo;
@@ -152,7 +157,9 @@ public class pantallaCrearVenta {
         Descuento = MontoOriginal / 100 * Float.parseFloat(tfdescuento.getText());
         MontoTotal = MontoOriginal - Descuento;
         lbMontoTotal.setText(String.valueOf(MontoTotal));
+        lbCanDescuento.setText("Descuento:"+Descuento);
         });
+        botonDescuento.getChildren().addAll(btntDescuento, lbCanDescuento);
         
 	Label lbTipo_venta = new Label("Tipo de Venta: ");
         Label lbCodigoFactura = new Label("Codigo Factura");
@@ -481,11 +488,13 @@ public class pantallaCrearVenta {
         });
         
         GridPane gpDesscuento = new GridPane();
+        botonDescuento.setSpacing(5);
         gpDesscuento.add(lbDescuento, 0,0);
         gpDesscuento.add(tfdescuento, 1,0);
-        gpDesscuento.add(btntDescuento, 1,1);
+        gpDesscuento.add(botonDescuento, 1,1);
         gpDesscuento.setHgap(10);
         gpDesscuento.setVgap(10);
+        
         
         GridPane gpClienteSeleccionado = new GridPane();
         gpClienteSeleccionado.setPadding(new Insets(5, 5, 5, 5));
@@ -509,6 +518,9 @@ public class pantallaCrearVenta {
         
         gpClienteSeleccionado.add(lbEmail, 0, 3);
         gpClienteSeleccionado.add(tfEmail, 1, 3);
+        
+        gpClienteSeleccionado.add(lbCdSucursal, 2, 3);
+        gpClienteSeleccionado.add(tfCdSucursal, 3, 3);
         
         
         VBox vbHead = new VBox();
@@ -793,6 +805,13 @@ public class pantallaCrearVenta {
                    parameters.put("ItemsDataSource", itemsJRBean);
                    float total = Float.valueOf(lbMontoTotal.getText());
                    parameters.put("total", total);
+                   parameters.put("cantDescuento", Descuento);
+                   parameters.put("descuento", tfdescuento.getText());
+                   parameters.put("folio", tfFolio.getText());
+                   parameters.put("nombreCliente", tfNombre.getText());
+                   parameters.put("domicilioFiscal", tfDomicilioFiscal.getText());
+                   parameters.put("cdSucursal", tfCdSucursal.getText());
+                   
                    //parameters.put("Fecha", LocalDate.now().toString());
                    /* Generando el PDF */
                     //C:\Users\dopcan\Documents\NetBeansProjects\ClasesConsultorio\src\gestionconsultorio

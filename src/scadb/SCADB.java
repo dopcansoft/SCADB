@@ -282,7 +282,7 @@ public class SCADB extends Application {
 
         Scene scene = new Scene(root, w, h);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("scadb!");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
