@@ -22,10 +22,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
@@ -52,7 +50,7 @@ import scadb.DAO.ventaDAO;
  *
  * @author dopcan
  */
-public class pantallaConsultarVenta {
+public class pantallaConsultarVentasCanceladas {
       ventaDAO ventDAO = new ventaDAO();
     detalle_ventaDAO detventaDAO = new detalle_ventaDAO();
     clienteDAO cliDAO = new clienteDAO();
@@ -76,7 +74,7 @@ public class pantallaConsultarVenta {
     TextField tfRFC = new TextField();
     TextField tfEmail = new TextField();
     
-    public VBox vistaConsultarVenta(VBox vbAreaTrabajo){
+    public VBox vistaConsultarVentaCancelada(VBox vbAreaTrabajo){
         usrActivo = new usuario();
         usrActivo.setBandera(1);
         usrActivo.setClave("SuperUser");
@@ -102,7 +100,7 @@ public class pantallaConsultarVenta {
 	Label lbTipo_venta = new Label("Tipo de Venta: ");
         Label lbCodigoFactura = new Label("Codigo Factura");
         
-        Label lbTituloVista = new Label("CONSULTAR VENTAS");
+        Label lbTituloVista = new Label("CONSULTAR VENTAS CANCELADAS");
         Font fuente = new Font("Arial Bold", 36);
         lbTituloVista.setFont(fuente);
         
@@ -185,10 +183,10 @@ public class pantallaConsultarVenta {
         
         tvTablaVentas.getColumns().addAll(idVentaColumna, FechaVentaColumna, tipoVentaColumna, clienteVentaColumna);
 
-        MenuItem miEliminarDetVenta = new MenuItem("Eliminar");
-        
-        ContextMenu cmTabVentas = new ContextMenu();
-        cmTabVentas.getItems().add(miEliminarDetVenta);
+//        MenuItem miEliminarDetVenta = new MenuItem("Eliminar");
+//        
+//        ContextMenu cmTabVentas = new ContextMenu();
+//        cmTabVentas.getItems().add(miEliminarDetVenta);
         
         btnBuscarVenta.setOnAction((event) -> {
             lbMontoTotal.setText(" 0.0 ");
@@ -214,9 +212,7 @@ public class pantallaConsultarVenta {
             if (rbBuscarPorFecha.isSelected()==true){
                   lstWhereConcepto.clear();
                   lstWhereConcepto.add("fecha = '"+dpBuscarPorFecha.getValue().toString()+"' ");
-                  lstWhereConcepto.add("flag != 4");
-                  lstWhereConcepto.add("flag != 3");
-
+                  lstWhereConcepto.add("flag = 4");
                   lstventa = FXCollections.observableArrayList(ventDAO.consultaVenta(lstWhereConcepto));
                   tvTablaVentas.setItems(lstventa);
             }
@@ -224,8 +220,7 @@ public class pantallaConsultarVenta {
             if (rbBuscarPorTipo.isSelected()==true){
                   lstWhereConcepto.clear();
                   lstWhereConcepto.add("tipo_venta = '"+tfBuscarPorTipo.getText()+"' ");
-                  lstWhereConcepto.add("flag != 4");
-                  lstWhereConcepto.add("flag != 3");
+                  lstWhereConcepto.add("flag = 4");
                   lstventa = FXCollections.observableArrayList(ventDAO.consultaVenta(lstWhereConcepto));
                   tvTablaVentas.setItems(lstventa);
             }
@@ -246,13 +241,14 @@ public class pantallaConsultarVenta {
         
         List<String> lstWhere = new ArrayList<>();
         lstWhere.add("codigo_prod is not null");
+        lstWhere.add("flag = 4");
 
         Label lbProducto = new Label("Tabla Producto Seleccionados: ");
         Label lbVenta = new Label("Tabla Ventas Seleccionadas: ");
         TableView tvProductosSelecc = new TableView();
         tvProductosSelecc.setPrefHeight(350);
         tvProductosSelecc.setPrefWidth(550);
-        tvProductosSelecc.setContextMenu(cmTabVentas);
+//        tvProductosSelecc.setContextMenu(cmTabVentas);
         //id_detalle_venta clave_prod cantidad codigo_nota_venta 
         //codigo_prod precio_menudeo precio_mayoreo descrprod 
         
@@ -287,32 +283,32 @@ public class pantallaConsultarVenta {
         tvProductosSelecc.getColumns().addAll(codigoProductColumna, descrProductColumna, cantidadProductColumna, precioVentaColumna, subtotalColumna);
         tvProductosSelecc.setItems(detventa);
         
-        miEliminarDetVenta.setOnAction((event) -> {
-            detalle_venta dtvtaTemp = (detalle_venta) tvProductosSelecc.getSelectionModel().getSelectedItem();
-            lstWhere.clear();
-            lstWhere.add("codigo_prod = "+ dtvtaTemp.getCodigo_prod());
-            inventario iv =  invent.consultaInventario(lstWhere).get(0);
-            int nvaCantidad = iv.getExistencia()+dtvtaTemp.getCantidad();
-            invent.modificarExistenciaProducto(dtvtaTemp.getCodigo_prod(), nvaCantidad);
-            detventaDAO.borrarDetVenta(dtvtaTemp.getId_detalle_venta());
-            detventa.clear();
-            lstWhereConcepto.clear();
-            lstWhereConcepto.add("codigo_nota_venta = "+dtvtaTemp.getCodigo_nota_venta());
-            detventa = FXCollections.observableArrayList(detventaDAO.consultaDetVenta(lstWhereConcepto));
-            lbMontoTotal.setText("0.0");
-            for (detalle_venta detv : detventa){
-                lstWhere.clear();
-                lstWhere.add("codigo_prod = "+detv.getCodigo_prod());
-                inventario ivTemp = invent.consultaInventario(lstWhere).get(0);
-                detv.setExistencia(ivTemp.getExistencia());
-                detv.setSubTotal(detv.getCantidad()* detv.getPrecio_venta());
-                float MontoTotal = Float.parseFloat(lbMontoTotal.getText());
-                MontoTotal = MontoTotal + detv.getSubTotal();
-                lbMontoTotal.setText(Float.toString(MontoTotal));               
-            }
-            tvProductosSelecc.setItems(detventa);
-            
-        });
+//        miEliminarDetVenta.setOnAction((event) -> {
+//            detalle_venta dtvtaTemp = (detalle_venta) tvProductosSelecc.getSelectionModel().getSelectedItem();
+//            lstWhere.clear();
+//            lstWhere.add("codigo_prod = "+ dtvtaTemp.getCodigo_prod());
+//            inventario iv =  invent.consultaInventario(lstWhere).get(0);
+//            int nvaCantidad = iv.getExistencia()+dtvtaTemp.getCantidad();
+//            invent.modificarExistenciaProducto(dtvtaTemp.getCodigo_prod(), nvaCantidad);
+//            detventaDAO.borrarDetVenta(dtvtaTemp.getId_detalle_venta());
+//            detventa.clear();
+//            lstWhereConcepto.clear();
+//            lstWhereConcepto.add("codigo_nota_venta = "+dtvtaTemp.getCodigo_nota_venta());
+//            detventa = FXCollections.observableArrayList(detventaDAO.consultaDetVenta(lstWhereConcepto));
+//            lbMontoTotal.setText("0.0");
+//            for (detalle_venta detv : detventa){
+//                lstWhere.clear();
+//                lstWhere.add("codigo_prod = "+detv.getCodigo_prod());
+//                inventario ivTemp = invent.consultaInventario(lstWhere).get(0);
+//                detv.setExistencia(ivTemp.getExistencia());
+//                detv.setSubTotal(detv.getCantidad()* detv.getPrecio_venta());
+//                float MontoTotal = Float.parseFloat(lbMontoTotal.getText());
+//                MontoTotal = MontoTotal + detv.getSubTotal();
+//                lbMontoTotal.setText(Float.toString(MontoTotal));               
+//            }
+//            tvProductosSelecc.setItems(detventa);
+//            
+//        });
 
        
         tvTablaVentas.setOnMouseClicked((event) -> {
@@ -438,16 +434,16 @@ public class pantallaConsultarVenta {
             }
         });
         
-        Button btnCancelar = new Button("Cancelar Venta");
-        btnCancelar.setOnAction((event) -> {
-            VENTA vta = (VENTA) tvTablaVentas.getSelectionModel().getSelectedItem();
-            ventDAO.cancelarVenta(vta.getCodigo_nota_venta());
-             removerVistas(vbAreaTrabajo);
-        });
+//        Button btnCancelar = new Button("Cancelar Venta");
+//        btnCancelar.setOnAction((event) -> {
+//            VENTA vta = (VENTA) tvTablaVentas.getSelectionModel().getSelectedItem();
+//            ventDAO.cancelarVenta(vta.getCodigo_nota_venta());
+//             removerVistas(vbAreaTrabajo);
+//        });
         
         HBox hbBotonesInferiores = new HBox();
         hbBotonesInferiores.setAlignment(Pos.CENTER_RIGHT);
-        hbBotonesInferiores.getChildren().addAll(btnSalir, btnCancelar);
+        hbBotonesInferiores.getChildren().addAll(btnSalir);
         
         VBox vbTabProducto = new VBox();
         vbTabProducto.setSpacing(5);

@@ -86,11 +86,7 @@ public class pantallaCrearVenta {
    TextField tfRFC = new TextField();
    TextField tfEmail = new TextField();
    TextField tfdescuento = new TextField();
-   Label lbDescuento = new Label();
-   Label lbCdSucursal = new Label("Cd. Suc.");
-   Button btntDescuento = new Button();
-   Label lbCanDescuento = new Label();
-   HBox botonDescuento = new HBox();
+
    
   
     float MontoTotal = 0.0f;
@@ -106,6 +102,13 @@ public class pantallaCrearVenta {
    CLIENTE clIdent = new CLIENTE();
     
     public VBox vistaCrearVenta(VBox vbAreaTrabajo){
+        
+           Label lbDescuento = new Label();
+   Label lbCdSucursal = new Label("Cd. Suc.");
+   Button btntDescuento = new Button();
+   Label lbCanDescuento = new Label();
+   HBox botonDescuento = new HBox();
+        
         usrActivo = new usuario();
         usrActivo.setBandera(1);
         usrActivo.setClave("SuperUser");
@@ -135,6 +138,8 @@ public class pantallaCrearVenta {
         Label lbTituloVista = new Label("REGISTRAR UNA VENTA");
         Font fuente = new Font("Arial Bold", 36);
         lbTituloVista.setFont(fuente);
+        Font fuenteMonto = new Font("Arial Bold", 22);
+        lbTituloVista.setFont(fuente);
         
         //Etiquetas/datos de la Remisión
         Label lbFolio = new Label("Folio de Nota: ");
@@ -149,8 +154,8 @@ public class pantallaCrearVenta {
         //Etiquetas/Datos de la Venta
         Label lbEtiquetaMonto = new Label("TOTAL: $ ");
         Label lbMontoTotal = new Label("0.0");
-        lbEtiquetaMonto.setFont(fuente);
-        lbMontoTotal.setFont(fuente);
+        lbEtiquetaMonto.setFont(fuenteMonto);
+        lbMontoTotal.setFont(fuenteMonto);
         
         btntDescuento.setOnAction((event) -> {
         
@@ -550,41 +555,43 @@ public class pantallaCrearVenta {
         HBox hbCompSeleccion = new HBox();
         Button btnBuscarProductos = new Button("Seleccionar");
         btnBuscarProductos.setMaxHeight(50);
-        btnBuscarProductos.setOnAction((ActionEvent e)->{
-         List<inventario> lstInv = new ArrayList<>();
-         List<String> lstWherelc = new ArrayList<>();
-         
-          if (rbTodos.isSelected()){
-           lstWherelc.add("codigo_prod is not null");
-           tvInventario.setItems(invent.consultarInventario(lstWherelc));
-           //String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvInventario.getItems().size())+" Seleccionados)";
-         } 
-         
-         if (rbCodigo.isSelected()){
-           lstWhere.add("codigo_prod = "+tfCodigo.getText());
-           //lstInv=invent.consultarInventario(lstWhere);
-           //ObservableList obList = FXCollections.observableArrayList(lstInv);
-           tvInventario.setItems(invent.consultarInventario(lstWhere));
-         }
-         if (rbDescripcion.isSelected()){
-             
-           lstWherelc.add("descripcion like '"+tfDescripcion.getText()+"%'");
-           //lstInv=invent.consultarInventario(lstWhere);
-           //ObservableList obList = FXCollections.observableArrayList(lstInv);
-           tvInventario.setItems(invent.consultarInventario(lstWherelc));
-         }
-         
-         if (rbCategoria.isSelected()){
-           lstWherecat.add("id_categoria is not null");  
-           for (categoria i : categDAO.consultarCategoria(lstWherecat)){
-             String strCategoria =  i.getCategoria();
-             if (strCategoria.compareTo(cbCategoria.getSelectionModel().getSelectedItem().toString())==0){
-                  lstWhere.add("id_categoria = "+i.getId_categoria());
-                  tvInventario.setItems(invent.consultarInventario(lstWhere));
-             }
-           }
-         }
-        });
+        btnBuscarProductos.setOnAction(new EventHandler<ActionEvent>() {
+               @Override
+               public void handle(ActionEvent e) {
+                   List<inventario> lstInv = new ArrayList<>();
+                   List<String> lstWherelc = new ArrayList<>();
+                   
+                   if (rbTodos.isSelected()){
+                       lstWherelc.add("codigo_prod is not null");
+                       tvInventario.setItems(invent.consultarInventario(lstWherelc));
+                       //String titulo = "MODIFICAR PRODUCTOS ("+String.valueOf(tvInventario.getItems().size())+" Seleccionados)";
+                   }
+                   
+                   if (rbCodigo.isSelected()){
+                       lstWhere.add("codigo_prod = "+tfCodigo.getText());
+                       //lstInv=invent.consultarInventario(lstWhere);
+                       //ObservableList obList = FXCollections.observableArrayList(lstInv);
+                       tvInventario.setItems(invent.consultarInventario(lstWhere));
+                   }
+                   if (rbDescripcion.isSelected()){
+                       
+                       lstWherelc.add("descripcion like '"+tfDescripcion.getText()+"%'");
+                       //lstInv=invent.consultarInventario(lstWhere);
+                       //ObservableList obList = FXCollections.observableArrayList(lstInv);
+                       tvInventario.setItems(invent.consultarInventario(lstWherelc));
+                   }
+                   
+                   if (rbCategoria.isSelected()){
+                       lstWherecat.add("id_categoria is not null");
+                       categDAO.consultarCategoria(lstWherecat).forEach((i) -> {
+                           String strCategoria =  i.getCategoria();
+                           if (strCategoria.compareTo(cbCategoria.getSelectionModel().getSelectedItem().toString())==0) {
+                               lstWhere.add("id_categoria = "+i.getId_categoria());
+                               tvInventario.setItems(invent.consultarInventario(lstWhere));
+                           }
+                       });
+                   }     }
+           });
         
         HBox hbTotal = new HBox();
         hbTotal.setPrefWidth(6000);
@@ -683,6 +690,7 @@ public class pantallaCrearVenta {
                            else if (!tfCodigoFactura.getText().isEmpty() && cbTipoVenta.getValue().toString().compareTo("EFECTIVO")==0 )   
                                vta.setTipo_venta("SISTEMA "+cbTipoVenta.getValue().toString());
                            else vta.setTipo_venta(cbTipoVenta.getValue().toString());
+                           
             
                            notas_remision notaRem = new notas_remision();
                            notaRem.setBandera(1);
@@ -694,7 +702,12 @@ public class pantallaCrearVenta {
                            else if (!tfCodigoFactura.getText().isEmpty() && cbTipoVenta.getValue().toString().compareTo("EFECTIVO")==0 )
                              notaRem.setTipo_operacion("SISTEMA "+cbTipoVenta.getValue().toString());
                            else notaRem.setTipo_operacion(cbTipoVenta.getValue().toString());
-            
+                           if (Float.parseFloat(tfdescuento.getText()) <= 0)
+                             notaRem.setDescuento(0.0f);
+                           else
+                             notaRem.setDescuento(Float.parseFloat(tfdescuento.getText()));
+                           System.out.println(Float.parseFloat(tfdescuento.getText()));
+                           
                            Credito cred = new Credito();
                            cred.setBandera(1);
                            cred.setCodigo_cliente(Integer.parseInt(tfCodigoCliente.getText()));
@@ -792,7 +805,7 @@ public class pantallaCrearVenta {
 
                     File file;
                     JasperReport jasperReport;
-                    file = new File("Reportes/Formatos/notaRemi.jasper");
+                    file = new File("Reportes/Formatos/notaRemiCte.jasper");
                     jasperReport = (JasperReport) JRLoader.loadObject(file);
                     LocalDateTime ld = LocalDateTime.now();
                     String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());
@@ -803,6 +816,7 @@ public class pantallaCrearVenta {
                    System.out.println("Hay "+tvProductosSelecc.getItems().size());
                    Map<String, Object> parameters = new HashMap<>();
                    parameters.put("ItemsDataSource", itemsJRBean);
+                   parameters.put("ProductosDataSource", itemsJRBean);
                    float total = Float.valueOf(lbMontoTotal.getText());
                    parameters.put("total", total);
                    parameters.put("cantDescuento", Descuento);

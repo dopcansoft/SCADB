@@ -116,6 +116,18 @@ public class ventaDAO {
         return regs;
       }
     
+    public void cancelarVenta(int id){
+        String sql = "UPDATE VENTA SET flag=4 WHERE codigo_nota_venta = ?";
+        Conexion conecta = new Conexion("DBPLAMAR.db");
+        
+        try (Connection con = conecta.conectaDB();
+            PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public void borrarVenta(int id){
         String sql = "UPDATE VENTA SET flag=3 WHERE codigo_nota_venta = ?";
         Conexion conecta = new Conexion("DBPLAMAR.db");

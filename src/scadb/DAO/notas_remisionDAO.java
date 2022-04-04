@@ -33,7 +33,7 @@ public class notas_remisionDAO {
                         Filtro.append(" AND "+i);
                 }			
         }		
-        String sql = "SELECT id_nota_rem, folio, fecha, tipo_operacion, monto FROM notas_remision where flag !=3 AND "+Filtro.toString();
+        String sql = "SELECT id_nota_rem, folio, fecha, tipo_operacion, monto, descuento FROM notas_remision where flag !=3 AND "+Filtro.toString();
         Conexion conecta = new Conexion("DBPLAMAR.db");
         System.out.println(sql);
 
@@ -47,6 +47,7 @@ public class notas_remisionDAO {
                identidadNotas.setFecha(rs.getString("fecha"));
                identidadNotas.setTipo_operacion(rs.getString("tipo_operacion"));
                identidadNotas.setMonto(rs.getFloat("monto"));
+               identidadNotas.setDescuento(rs.getFloat("descuento"));
                lstNotas.add(identidadNotas);
              }
              con.close();
@@ -61,8 +62,8 @@ public class notas_remisionDAO {
         int regs=0;
         StringBuilder sqrString= new StringBuilder();
         Conexion conecta = new Conexion("DBPLAMAR.db");    
-        sqrString.append("INSERT INTO notas_remision( folio, fecha, tipo_operacion, monto, flag) "
-                + "VALUES (?, ?, ?, ?, ?)");
+        sqrString.append("INSERT INTO notas_remision( folio, fecha, tipo_operacion, monto, flag, descuento) "
+                + "VALUES (?, ?, ?, ?, ?, ?)");
         System.out.print(sqrString.toString());
         try{
              Connection con = conecta.conectaDB();
@@ -73,6 +74,7 @@ public class notas_remisionDAO {
              pstmt.setString(3, notas.getTipo_operacion());
              pstmt.setFloat(4, notas.getMonto());
              pstmt.setInt(5, 1);
+             pstmt.setFloat(6, notas.getDescuento());
              regs = pstmt.executeUpdate();
              ResultSet rs = pstmt.getGeneratedKeys();
              if (regs== 1){
@@ -95,7 +97,8 @@ public class notas_remisionDAO {
                 + "fecha = ?, "
                 + "tipo_operacion = ?, "
                 + "monto = ?, "
-                + "flag = ? "
+                + "flag = ?, "
+                + "descuento = ? "
                 + "WHERE id_nota_rem=? ");
         System.out.print(sqrString.toString());
         try{
