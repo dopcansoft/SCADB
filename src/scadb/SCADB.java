@@ -14,10 +14,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import scadb.IG.PantallaAgregarGastos;
 import scadb.IG.PantallaAgregarProducto;
+import scadb.IG.PantallaConsultarGastos;
 import scadb.IG.PantallaEliminarCLientes;
 import scadb.IG.PantallaEliminarCategoria;
 import scadb.IG.PantallaEliminarDatosDeProvedor;
+import scadb.IG.PantallaEliminarGastos;
 import scadb.IG.PantallaEliminarProducto;
 import scadb.IG.PantallaGestionDeAparatados;
 import scadb.IG.PantallaGestionDeCreditos;
@@ -25,12 +28,14 @@ import scadb.IG.PantallaImportarProducto;
 import scadb.IG.PantallaModificarCLiente;
 import scadb.IG.PantallaModificarCategoria;
 import scadb.IG.PantallaModificarDatosDeProvedor;
+import scadb.IG.PantallaModificarGastos;
 import scadb.IG.PantallaModificarProducto;
 import scadb.IG.PantallaNuevaCategoria;
 import scadb.IG.PantallaNuevoCliente;
 import scadb.IG.PantallaNuevoProvedor;
 import scadb.IG.pantallaCancelarVenta;
 import scadb.IG.pantallaConsultarVenta;
+import scadb.IG.pantallaConsultarVentasCanceladas;
 import scadb.IG.pantallaCrearVenta;
 import scadb.IG.pantallaExportarDbVenta;
 import scadb.IG.pantallaExportarXlsVenta;
@@ -47,6 +52,7 @@ public class SCADB extends Application {
 
         pantallaCrearVenta pCrearVenta = new pantallaCrearVenta();
         pantallaConsultarVenta pConsultarVenta = new pantallaConsultarVenta();
+        pantallaConsultarVentasCanceladas pConsultarVentaCanceladas = new pantallaConsultarVentasCanceladas();
         pantallaCancelarVenta pCancelarVenta = new pantallaCancelarVenta();
         pantallaExportarXlsVenta pExportaXlsVenta = new pantallaExportarXlsVenta();
         pantallaExportarDbVenta pExportaDbVenta = new pantallaExportarDbVenta();
@@ -69,7 +75,11 @@ public class SCADB extends Application {
         PantallaModificarDatosDeProvedor pModificarDatosDeProvedor = new PantallaModificarDatosDeProvedor();
         PantallaEliminarDatosDeProvedor pEliminarDatosDeProvedor = new PantallaEliminarDatosDeProvedor();
          
-         
+        PantallaAgregarGastos pAgregarGasto = new PantallaAgregarGastos();
+        PantallaModificarGastos pModificarGastos = new PantallaModificarGastos();
+        PantallaEliminarGastos pEliminarGastos = new PantallaEliminarGastos();
+        PantallaConsultarGastos pConsultarGastos =  new PantallaConsultarGastos();
+        
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         double h = screenSize.getHeight();
         double w = screenSize.getWidth();
@@ -79,15 +89,16 @@ public class SCADB extends Application {
 
         MenuItem miCrearVentas = new MenuItem("Crear");
         MenuItem miConsultarVentas = new MenuItem("Consultar");
+        MenuItem miConsultarVentasCanceladas = new MenuItem("Consultar Ventas Canceladas");
         MenuItem miCancelarVentas = new MenuItem("Cancelar");
 
         Menu meVentas = new Menu("Ventas");
-        meVentas.getItems().addAll(miCrearVentas, miConsultarVentas, miCancelarVentas);
+        meVentas.getItems().addAll(miCrearVentas, miConsultarVentas, miCancelarVentas, miConsultarVentasCanceladas);
 
         MenuItem miExportaXLS = new MenuItem("Exportar xls");
         MenuItem miExportaDB = new MenuItem("Exportar DB");
 
-        Menu meHtasExport = new Menu("Herramientas de Exportacion");
+        Menu meHtasExport = new Menu("Exportacion");
         meHtasExport.getItems().addAll(miExportaXLS, miExportaDB);
 
         MenuItem miAgregarProducto = new MenuItem("Agregar Producto");
@@ -126,12 +137,20 @@ public class SCADB extends Application {
         Menu mProveedores = new Menu("Proveedores");
         mProveedores.getItems().addAll(miNuevoProveedor, miModificarDatosDeProvedor,miEliminarDatosDeProvedor);
         
-        MenuItem miGenerarReporte = new MenuItem("Generar Reporte");
-        MenuItem miSubirReporte = new MenuItem("Subir Reporte");
-        Menu mReporte = new Menu("Reporte");
-        mReporte.getItems().addAll(miGenerarReporte, miSubirReporte);
+        Menu mGastos = new Menu("Gastos");
+        MenuItem miAgregarGastos = new MenuItem("Agregar Gastos");
+        MenuItem miConsultarGastos = new MenuItem("Consulta Gastos");
+        MenuItem miModificarGastos = new MenuItem("Modificar Gastos");
+        MenuItem miEliminarGastos = new MenuItem("Eliminar Gastos");
+    
+        mGastos.getItems().addAll(miAgregarGastos, miConsultarGastos, miModificarGastos, miEliminarGastos);
+    
+//        MenuItem miGenerarReporte = new MenuItem("Generar Reporte");
+//        MenuItem miSubirReporte = new MenuItem("Subir Reporte");
+//        Menu mReporte = new Menu("Reporte");
+//        mReporte.getItems().addAll(miGenerarReporte, miSubirReporte);
         
-        MenuBar mbPincipal = new MenuBar(meVentas, meHtasExport, meListaProductos, mClientes, mProveedores, mReporte);
+        MenuBar mbPincipal = new MenuBar(meVentas, meHtasExport, meListaProductos, mClientes, mProveedores, mGastos);
 
         //Eventos del Menu
         miEliminarDatosDeProvedor.setOnAction((event) -> {
@@ -249,14 +268,21 @@ public class SCADB extends Application {
             if (vbAreTrabajo.getChildren().size() > 0) {
                 vbAreTrabajo.getChildren().clear();
             }
-            vbAreTrabajo.getChildren().add(pConsultarVenta.vistaConsultarVenta());
+            vbAreTrabajo.getChildren().add(pConsultarVenta.vistaConsultarVenta(vbAreTrabajo));
+        });
+        
+        miConsultarVentasCanceladas.setOnAction((event) -> {
+            if (vbAreTrabajo.getChildren().size() > 0) {
+                vbAreTrabajo.getChildren().clear();
+            }
+            vbAreTrabajo.getChildren().add(pConsultarVentaCanceladas.vistaConsultarVentaCancelada(vbAreTrabajo));
         });
 
         miCancelarVentas.setOnAction((event) -> {
             if (vbAreTrabajo.getChildren().size() > 0) {
                 vbAreTrabajo.getChildren().clear();
             }
-            vbAreTrabajo.getChildren().add(pCancelarVenta.vistaCancelarVenta());
+            vbAreTrabajo.getChildren().add(pCancelarVenta.vistaCancelarVenta(vbAreTrabajo));
 
         });
 
@@ -264,7 +290,7 @@ public class SCADB extends Application {
             if (vbAreTrabajo.getChildren().size() > 0) {
                 vbAreTrabajo.getChildren().clear();
             }
-            vbAreTrabajo.getChildren().add(pExportaXlsVenta.vistaExportarXLS());
+            vbAreTrabajo.getChildren().add(pExportaXlsVenta.vistaExportarXLS(vbAreTrabajo));
 
         });
         miExportaDB.setOnAction((event) -> {
@@ -273,6 +299,35 @@ public class SCADB extends Application {
             }
             vbAreTrabajo.getChildren().add(pExportaDbVenta.vistaExportarDB());
 
+        });
+        
+        
+        miAgregarGastos.setOnAction((event) -> {
+              if (vbAreTrabajo.getChildren().size() > 0){ 
+                  vbAreTrabajo.getChildren().clear();
+              }
+               vbAreTrabajo.getChildren().addAll(pAgregarGasto.vistaAgregarGasto(vbAreTrabajo));
+        });
+        
+        miModificarGastos.setOnAction((event) -> {
+              if (vbAreTrabajo.getChildren().size() > 0){ 
+               vbAreTrabajo.getChildren().clear();
+              }
+               vbAreTrabajo.getChildren().addAll(pModificarGastos.vistaModificarGasto(vbAreTrabajo));
+        });
+        
+        miEliminarGastos.setOnAction((event) -> {
+              if (vbAreTrabajo.getChildren().size() > 0){ 
+               vbAreTrabajo.getChildren().clear();
+              }
+               vbAreTrabajo.getChildren().addAll(pEliminarGastos.vistaEliminarGasto(vbAreTrabajo));
+        });
+        
+        miConsultarGastos.setOnAction((event) -> {
+              if (vbAreTrabajo.getChildren().size() <= 0){ 
+               vbAreTrabajo.getChildren().clear();
+              }
+               vbAreTrabajo.getChildren().addAll(pConsultarGastos.vistaConsultarGasto(vbAreTrabajo));
         });
 
         vbPrincipal.getChildren().addAll(mbPincipal, vbAreTrabajo);
