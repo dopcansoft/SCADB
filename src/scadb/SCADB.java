@@ -301,7 +301,6 @@ public class SCADB extends Application {
 
         });
         
-        
         miAgregarGastos.setOnAction((event) -> {
               if (vbAreTrabajo.getChildren().size() > 0){ 
                   vbAreTrabajo.getChildren().clear();
@@ -324,7 +323,7 @@ public class SCADB extends Application {
         });
         
         miConsultarGastos.setOnAction((event) -> {
-              if (vbAreTrabajo.getChildren().size() <= 0){ 
+              if (vbAreTrabajo.getChildren().size() > 0){ 
                vbAreTrabajo.getChildren().clear();
               }
                vbAreTrabajo.getChildren().addAll(pConsultarGastos.vistaConsultarGasto(vbAreTrabajo));

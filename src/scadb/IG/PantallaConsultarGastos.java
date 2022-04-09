@@ -84,7 +84,7 @@ public class PantallaConsultarGastos {
     public VBox vistaConsultarGasto(VBox vbAreaTrabajo){
           VBox vbPpal = new VBox();
         vbPpal.setAlignment(Pos.CENTER_LEFT);
-        Label lbTituloVista = new Label("CONSULTAR GASTOS");
+        Label lbTituloVista = new Label("CONSULTAR GASTO");
         Font fuente = new Font("Arial Bold", 36);
         lbTituloVista.setFont(fuente);
          if (!lstConceptosGastos.isEmpty()){
@@ -95,11 +95,6 @@ public class PantallaConsultarGastos {
                lstConceptosGastos.add(lstCatGast.getConcepto());
         }
         
-        //id_gasto
-        //concepto
-	//fecha
-	//monto
-	//flag
         TableView<gasto> tvGastos = new TableView();
         tvGastos.setMaxHeight(520);
         
@@ -147,7 +142,7 @@ public class PantallaConsultarGastos {
            tvGastos.setItems(gasDAO.consultarGasto(lstWhereConcepto));
          }
          
-           String titulo = "MODIFICAR GASTO ("+String.valueOf(tvGastos.getItems().size())+" Seleccionados)";
+           String titulo = "CONSULTAR GASTO("+String.valueOf(tvGastos.getItems().size())+" Seleccionados)";
            lbTituloVista.setText(titulo);
          
         });
@@ -188,7 +183,7 @@ public class PantallaConsultarGastos {
         tvGastos.getColumns().addAll(idGastoColumna, conceptoGastoColumna, montoGastoColumna, fechaGastoColumna);
         lstWhereConcepto.add("fecha = '"+dpFecha.getValue().toString()+"' ");
         tvGastos.setItems(gasDAO.consultarGasto(lstWhereConcepto));
-        String titulo = "MODIFICAR GASTO ("+String.valueOf(tvGastos.getItems().size())+" Seleccionados)";
+        String titulo = "CONSULTAR GASTO ("+String.valueOf(tvGastos.getItems().size())+" Seleccionados)";
         lbTituloVista.setText(titulo);
         
         Label lbIdGastos = new Label("Id Gasto: ");
