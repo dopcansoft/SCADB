@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -208,6 +209,10 @@ public class pantallaExportarXLSGasto {
                  FileOutputStream elFichero = new FileOutputStream("GastoExportado"+cadenaCreacionFecha+".xls");
                  workbook.write(elFichero);
                  elFichero.close();
+                 Alert altMensaje = new Alert(Alert.AlertType.INFORMATION);
+                 altMensaje.setContentText("Archivo excel de gastos generado!!");
+                 altMensaje.setTitle("Informacion-Venta");
+                 altMensaje.show();
              } catch (Exception er) {
                  er.printStackTrace();
              }         
