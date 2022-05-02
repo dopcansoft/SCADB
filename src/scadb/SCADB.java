@@ -37,8 +37,10 @@ import scadb.IG.pantallaCancelarVenta;
 import scadb.IG.pantallaConsultarVenta;
 import scadb.IG.pantallaConsultarVentasCanceladas;
 import scadb.IG.pantallaCrearVenta;
-import scadb.IG.pantallaExportarDbVenta;
+import scadb.IG.pantallaExportarXLSGasto;
 import scadb.IG.pantallaExportarXlsVenta;
+import scadb.IG.pantallaExportarXLSApartado;
+import scadb.IG.pantallaExportarXLSCredito;
 
 /**
  *
@@ -49,13 +51,15 @@ public class SCADB extends Application {
     @Override
     public void start(Stage primaryStage) {
         // pantallas
-
+        
         pantallaCrearVenta pCrearVenta = new pantallaCrearVenta();
         pantallaConsultarVenta pConsultarVenta = new pantallaConsultarVenta();
         pantallaConsultarVentasCanceladas pConsultarVentaCanceladas = new pantallaConsultarVentasCanceladas();
         pantallaCancelarVenta pCancelarVenta = new pantallaCancelarVenta();
         pantallaExportarXlsVenta pExportaXlsVenta = new pantallaExportarXlsVenta();
-        pantallaExportarDbVenta pExportaDbVenta = new pantallaExportarDbVenta();
+        pantallaExportarXLSGasto pExportaGasto = new pantallaExportarXLSGasto();
+        pantallaExportarXLSApartado pExportaApartado = new pantallaExportarXLSApartado();
+        pantallaExportarXLSCredito pExportaCredito = new pantallaExportarXLSCredito();
 
         PantallaAgregarProducto pAgregarProducto = new PantallaAgregarProducto();
         PantallaModificarProducto pModificarProducto = new PantallaModificarProducto();
@@ -95,11 +99,13 @@ public class SCADB extends Application {
         Menu meVentas = new Menu("Ventas");
         meVentas.getItems().addAll(miCrearVentas, miConsultarVentas, miCancelarVentas, miConsultarVentasCanceladas);
 
-        MenuItem miExportaXLS = new MenuItem("Exportar xls");
-        MenuItem miExportaDB = new MenuItem("Exportar DB");
+        MenuItem miExportaVentasXLS = new MenuItem("Exportar  Ventas a xls");
+        MenuItem miExportaGastosXLS = new MenuItem("Exportar Gastos a xls");
+        MenuItem miExportaCreditosXLS = new MenuItem("Exportar Creditos a xls");
+        MenuItem miExportaApartadosXLS = new MenuItem("Exportar Apartados a xls");
 
         Menu meHtasExport = new Menu("Exportacion");
-        meHtasExport.getItems().addAll(miExportaXLS, miExportaDB);
+        meHtasExport.getItems().addAll(miExportaVentasXLS, miExportaGastosXLS, miExportaCreditosXLS, miExportaApartadosXLS);
 
         MenuItem miAgregarProducto = new MenuItem("Agregar Producto");
         MenuItem miEliminarProducto = new MenuItem("Eliminar Producto");
@@ -286,18 +292,34 @@ public class SCADB extends Application {
 
         });
 
-        miExportaXLS.setOnAction((event) -> {
+        miExportaVentasXLS.setOnAction((event) -> {
             if (vbAreTrabajo.getChildren().size() > 0) {
                 vbAreTrabajo.getChildren().clear();
             }
             vbAreTrabajo.getChildren().add(pExportaXlsVenta.vistaExportarXLS(vbAreTrabajo));
 
         });
-        miExportaDB.setOnAction((event) -> {
+        miExportaGastosXLS.setOnAction((event) -> {
             if (vbAreTrabajo.getChildren().size() > 0) {
                 vbAreTrabajo.getChildren().clear();
             }
-            vbAreTrabajo.getChildren().add(pExportaDbVenta.vistaExportarDB());
+            vbAreTrabajo.getChildren().add(pExportaGasto.vistaExportarGasto(vbAreTrabajo));
+
+        });
+        
+        miExportaCreditosXLS.setOnAction((event) -> {
+            if (vbAreTrabajo.getChildren().size() > 0) {
+                vbAreTrabajo.getChildren().clear();
+            }
+            vbAreTrabajo.getChildren().add(pExportaCredito.vistaExportarCredito(vbAreTrabajo));
+
+        });
+        
+        miExportaApartadosXLS.setOnAction((event) -> {
+            if (vbAreTrabajo.getChildren().size() > 0) {
+                vbAreTrabajo.getChildren().clear();
+            }
+//            vbAreTrabajo.getChildren().add(pExportaDbVenta.vistaExportarGastoCredito(vbAreTrabajo));
 
         });
         

@@ -805,7 +805,7 @@ public class pantallaCrearVenta {
 
                     File file;
                     JasperReport jasperReport;
-                    file = new File("Reportes/Formatos/notaRemiCte.jasper");
+                    file = new File("Reportes/Formatos/notaRemi.jasper");
                     jasperReport = (JasperReport) JRLoader.loadObject(file);
                     LocalDateTime ld = LocalDateTime.now();
                     String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());

@@ -6,9 +6,10 @@
 package scadb.IG;
 
 import DTO.VENTA;
-import DTO.detalle_venta;
 import DTO.notas_remision;
+import DTO.detalle_venta;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,24 +40,26 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import scadb.DAO.detalle_ventaDAO;
 import scadb.DAO.notas_remisionDAO;
 import scadb.DAO.ventaDAO;
+import scadb.DAO.detalle_ventaDAO;
 
 /**
  *
  * @author dopcan
  */
-public class pantallaExportarXlsVenta {
+public class pantallaExportarXlsVentaold {
     
     notas_remisionDAO notasDAO = new notas_remisionDAO();
     notas_remision notRem = new notas_remision();
+    
     ventaDAO ventDAO = new ventaDAO();
     detalle_ventaDAO detalleVentaDAO = new detalle_ventaDAO();
     
     ObservableList obList = FXCollections.observableArrayList();
     List<VENTA> lstVentas = new ArrayList<VENTA>();
     List<detalle_venta> lstDetalleVenta = new ArrayList<detalle_venta>();
+    
     
     public VBox vistaExportarXLS(VBox vbAreaTrabajo){
         
@@ -132,6 +135,7 @@ public class pantallaExportarXlsVenta {
         descuentoColumna.setCellValueFactory(new PropertyValueFactory<>("descuento"));
        
         tvNotasRemision.getColumns().addAll(idNotaREmColumna, folioColumna, FechaColumna, tipOperColumna, montoColumna, descuentoColumna);
+        //tvNotasRemision.setItems(obList);
         
         btnBuscar.setOnAction((event) -> {
             if (rbPorFecha.isSelected()){
@@ -182,7 +186,6 @@ public class pantallaExportarXlsVenta {
                 workbook.setSheetName(2, "Detalle Productos");
                 
                 String[] headersNotaRemi = new String[]{
-                    "id Nota Remision",
                     "Folio",
                     "Fecha",
                     "Tipo Operacion",
@@ -213,6 +216,8 @@ public class pantallaExportarXlsVenta {
                 headerStyle.setFont(font);
                 headerStyle.setFillBackgroundColor(HSSFColor.DARK_GREEN.index);
                 headerStyle.setFillPattern(HSSFCellStyle.SQUARES);
+                //headerStyle.setFillBackgroundColor(IndexedColors.BLUE_GREY.getIndex());
+                //headerStyle.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
                 
                 HSSFCellStyle style = workbook.createCellStyle();
                 style.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
@@ -229,16 +234,14 @@ public class pantallaExportarXlsVenta {
                     HSSFRow datosRowNotaRemi = sheetNotaRemi.createRow(i+1);
                     
                     HSSFCell cell = datosRowNotaRemi.createCell(0);
-                    cell.setCellValue(lstNotasRemision.get(i).getId_nota_rem());
-                    cell = datosRowNotaRemi.createCell(1);
                     cell.setCellValue(lstNotasRemision.get(i).getFolio());
-                    cell = datosRowNotaRemi.createCell(2);
+                    cell = datosRowNotaRemi.createCell(1);
                     cell.setCellValue(lstNotasRemision.get(i).getFecha());
-                    cell = datosRowNotaRemi.createCell(3);
+                    cell = datosRowNotaRemi.createCell(2);
                     cell.setCellValue(lstNotasRemision.get(i).getTipo_operacion());
-                    cell = datosRowNotaRemi.createCell(4);
+                    cell = datosRowNotaRemi.createCell(3);
                     cell.setCellValue(lstNotasRemision.get(i).getMonto());
-                    cell = datosRowNotaRemi.createCell(5);
+                    cell = datosRowNotaRemi.createCell(4);
                     cell.setCellValue(lstNotasRemision.get(i).getDescuento());
                 }
                 
@@ -250,7 +253,7 @@ public class pantallaExportarXlsVenta {
                     cell.setCellValue(header);
                 }
                 
-                lstNotasRemision.addAll(obList);
+//                lstNotasRemision.addAll(obList);
                 for (int i = 0; i < lstVentas.size(); ++i ) {
                     HSSFRow datosRowVenta = sheetVenta.createRow(i+1);
                     
@@ -309,11 +312,20 @@ public class pantallaExportarXlsVenta {
                     FileOutputStream elFichero = new FileOutputStream("Exportado"+cadenaCreacionFecha+".xls");
                     workbook.write(elFichero);
                     elFichero.close();
-                } catch (Exception er) {
-                    er.printStackTrace();
+                    System.out.println("Documento creado");
+                } catch (IOException er) {
+                    System.out.println(er.getMessage());
                 }
                 
                 
+//        tvNotasRemision.setOnMouseClicked((event) -> {
+//tfNombreProveedor.setText("Seleccionaste: "+ tvProveedores.getSelectionModel().getSelectedIndex());
+//          notas_remision notRemIde = (notas_remision)tvNotasRemision.getSelectionModel().getSelectedItem();
+//          tfIdNotaRem.setText(String.valueOf(notRemIde.getId_nota_rem()));
+//          tfFolio.setText(notRemIde.getFolio());
+//          dpFecha.setValue(LocalDate.parse(notRemIde.getFecha()));
+//          tfMonto.setText(String.valueOf(notRemIde.getMonto()));
+//          cbTiOper.setValue(notRemIde.getTipo_operacion());
             }         
         });
          
@@ -323,6 +335,17 @@ public class pantallaExportarXlsVenta {
          GridPane gpPrincipal = new GridPane();
          gpPrincipal.setHgap(10);
          gpPrincipal.setVgap(10);
+         
+//         gpPrincipal.add(lbIdNotaRem, 0, 0);
+//         gpPrincipal.add(tfIdNotaRem, 1, 0);
+//         gpPrincipal.add(lbFolio, 0, 1);
+//         gpPrincipal.add(tfFolio, 1, 1);
+//         gpPrincipal.add(lbFecha, 0, 2);
+//         gpPrincipal.add(dpFecha, 1, 2);
+//         gpPrincipal.add(lbTiOper, 0, 3);
+//         gpPrincipal.add(cbTiOper, 1, 3);
+//         gpPrincipal.add(lbMonto, 0, 4);
+//         gpPrincipal.add(tfMonto, 1, 4);
          gpPrincipal.add(hbBotones, 0, 0);
         
          vbPpal.getChildren().addAll(lbTituloVista, gpCompSeleccion, tvNotasRemision, gpPrincipal);
