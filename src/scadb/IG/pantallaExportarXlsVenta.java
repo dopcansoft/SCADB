@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -309,6 +310,10 @@ public class pantallaExportarXlsVenta {
                     FileOutputStream elFichero = new FileOutputStream("Exportado"+cadenaCreacionFecha+".xls");
                     workbook.write(elFichero);
                     elFichero.close();
+                    Alert altMensaje = new Alert(Alert.AlertType.INFORMATION);
+                    altMensaje.setContentText("Archivo excel ventas del dia generado!!");
+                    altMensaje.setTitle("Informacion-Venta");
+                    altMensaje.show();
                 } catch (Exception er) {
                     er.printStackTrace();
                 }

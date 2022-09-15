@@ -8,13 +8,19 @@ package scadb.IG;
 import DTO.CLIENTE;
 import DTO.Credito;
 import DTO.pagos_credito;
+import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -27,8 +33,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 import scadb.DAO.CreditoDAO;
 import scadb.DAO.clienteDAO;
 import scadb.DAO.pagos_creditoDAO;
@@ -83,7 +102,14 @@ public class PantallaGestionDeCreditos {
         
         Button btnCancelar = new Button("Cancelar");
         Button btnRegPago = new Button("Reg. Pago");
-
+        Button btnGenerarNota = new Button("Generar Nota");
+        
+        GridPane gpBotonesPagos= new GridPane();
+        gpBotonesPagos.setVgap(10);
+        gpBotonesPagos.setHgap(10);
+        gpBotonesPagos.add(btnRegPago, 0, 0);
+        gpBotonesPagos.add(btnGenerarNota, 0, 1);
+        
         GridPane gpDatosPago = new GridPane();
         gpDatosPago.setVgap(10);
         gpDatosPago.setHgap(10);
@@ -101,7 +127,7 @@ public class PantallaGestionDeCreditos {
         gpDatosPago.add(tfMonto, 3, 1);
 
         gpDatosPago.add(btnCancelar, 2, 2);
-        gpDatosPago.add(btnRegPago, 3, 2);
+        gpDatosPago.add(gpBotonesPagos, 3, 2);
         
         gpDatosPago.add(lbEtiquetaTotalCredito, 1, 3);
         gpDatosPago.add(lbTotalCredito, 2, 3);
@@ -280,6 +306,72 @@ public class PantallaGestionDeCreditos {
             altMensaje.setTitle("Informacion-Credito");
             altMensaje.show();           
         });
+        
+        
+                btnGenerarNota.setOnAction((event) -> {
+                  try{
+
+                   /* User home directory location */
+                   // String userHomeDirectory = System.getProperty("user.home");
+                    /* Output file location */
+
+                    File file;
+                    JasperReport jasperReport;
+                    file = new File("Reportes/Formatos/notaRemiCre.jasper");
+                    jasperReport = (JasperReport) JRLoader.loadObject(file);
+                    LocalDateTime ld = LocalDateTime.now();
+                    String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());
+                    //String outputFile = userHomeDirectory + File.separatorChar + "ReporteInventario"+fechaFile+".pdf";
+                    String outputFile = "Reportes/NotasRemision/" + File.separatorChar + "PagosCredito"+fechaFile+".pdf";
+                   //JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductos.getItems().subList(0, tvProductos.getItems().size()-1));
+                   JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvPagos.getItems());
+                   CLIENTE cliente = (CLIENTE) tvClientes.getSelectionModel().getSelectedItem();
+                   Credito credit = (Credito) tvCreditos.getSelectionModel().getSelectedItem();
+                   System.out.println("Hay "+tvPagos.getItems().size());
+                   Map<String, Object> parameters = new HashMap<>();
+                   parameters.put("ItemsDataSource", itemsJRBean);
+                   parameters.put("ProductosDataSource", itemsJRBean);
+                   String totalCubierto = lbTotalCubierto.getText();
+                   parameters.put("totalCubierto", totalCubierto);
+                   parameters.put("totalCredito", String.valueOf(credit.getMonto()));
+                   parameters.put("totalResto", lbResto.getText());
+                   parameters.put("nombreCliente", cliente.getNombre());
+                   parameters.put("domicilioFiscal", cliente.getDomicilio_fiscal());
+                   parameters.put("numeroCredito", String.valueOf(credit.getId_credito()));
+                   
+                   
+                   //parameters.put("Fecha", LocalDate.now().toString());
+                   /* Generando el PDF */
+                    //C:\Users\dopcan\Documents\NetBeansProjects\ClasesConsultorio\src\gestionconsultorio
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+                    JRViewer jrViewer;
+                    JPanel jpanel;
+                    SwingNode swingNode;
+                    jpanel = new JPanel();
+                    swingNode = new SwingNode();
+                    jrViewer = new JRViewer(jasperPrint);
+                    jrViewer.setBounds(0, 0, 1200, 800);
+                    jpanel.setLayout(null);
+                    jpanel.add(jrViewer);
+                    jpanel.setSize(1200, 800);
+                    Pane panePreview = new Pane(); 
+                    panePreview.setPrefSize(1200, 800);
+                    panePreview.getChildren().add(swingNode);
+                    swingNode.setContent(jpanel);
+
+                    StackPane rootSelectClientes = new StackPane();
+                    rootSelectClientes.getChildren().addAll(swingNode);
+
+                    Scene scene = new Scene(rootSelectClientes,1200,800);
+                    Stage stgPpal = new Stage();
+                    stgPpal.setScene(scene);
+                    stgPpal.initModality(Modality.WINDOW_MODAL);
+                    stgPpal.show();  
+                } catch (JRException ex) {
+                    ex.printStackTrace();
+                }             
+                });
+
         
        VBox vbIzq = new VBox();
        vbIzq.setSpacing(10);

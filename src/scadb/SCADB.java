@@ -127,7 +127,7 @@ public class SCADB extends Application {
         MenuItem miModificarDatosDeCLiente = new MenuItem("Modificar Datos De Clientes");
         MenuItem miEliminarDatosDeCliente = new MenuItem("Eliminar Datos De Clientes");
         MenuItem miGestionDeCreditos = new MenuItem("Gestion De Creditos");
-        MenuItem miGestionDeApartados = new MenuItem("Gestion De Aprtados");
+        MenuItem miGestionDeApartados = new MenuItem("Gestion De Apartados");
         
         Menu mCreditos = new Menu("Creditos");
         mCreditos.getItems().addAll(miGestionDeCreditos);
@@ -319,7 +319,7 @@ public class SCADB extends Application {
             if (vbAreTrabajo.getChildren().size() > 0) {
                 vbAreTrabajo.getChildren().clear();
             }
-//            vbAreTrabajo.getChildren().add(pExportaDbVenta.vistaExportarGastoCredito(vbAreTrabajo));
+            vbAreTrabajo.getChildren().add(pExportaApartado.vistaExportarApartado(vbAreTrabajo));
 
         });
         

@@ -103,11 +103,11 @@ public class pantallaCrearVenta {
     
     public VBox vistaCrearVenta(VBox vbAreaTrabajo){
         
-           Label lbDescuento = new Label();
-   Label lbCdSucursal = new Label("Cd. Suc.");
-   Button btntDescuento = new Button();
-   Label lbCanDescuento = new Label();
-   HBox botonDescuento = new HBox();
+        Label lbDescuento = new Label();
+        Label lbCdSucursal = new Label("Cd. Suc.");
+        Button btntDescuento = new Button();
+        Label lbCanDescuento = new Label();
+        HBox botonDescuento = new HBox();
         
         usrActivo = new usuario();
         usrActivo.setBandera(1);
@@ -117,7 +117,7 @@ public class pantallaCrearVenta {
         usrActivo.setTipo("SuperUser");
         usrActivo.setUsuario("SuperUser");
        
-         if (detventa.size()>0){
+        if (detventa.size()>0){
             detventa = FXCollections.observableArrayList();
         }
         
@@ -825,6 +825,7 @@ public class pantallaCrearVenta {
                    parameters.put("nombreCliente", tfNombre.getText());
                    parameters.put("domicilioFiscal", tfDomicilioFiscal.getText());
                    parameters.put("cdSucursal", tfCdSucursal.getText());
+                   parameters.put("tipoVenta", cbTipoVenta.getValue().toString());
                    
                    //parameters.put("Fecha", LocalDate.now().toString());
                    /* Generando el PDF */
