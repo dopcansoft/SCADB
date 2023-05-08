@@ -31,7 +31,7 @@ public class pagos_creditoDAO {
                         Filtro.append(" AND "+i);
                 }			
         }		
-        String sql = "SELECT id_pago_cre, folio, fecha, monto, id_credito FROM pagos_credito where flag != 3 and "+Filtro.toString();
+        String sql = "SELECT id_pago_cre, folio, fecha, monto, id_credito, tipo_pago FROM pagos_credito where flag != 3 and "+Filtro.toString();
         Conexion conecta = new Conexion("DBPLAMAR.db");
         System.out.println(sql);
 
@@ -45,6 +45,7 @@ public class pagos_creditoDAO {
                identidadPagoCred.setFecha(rs.getString("fecha"));
                identidadPagoCred.setMonto(rs.getFloat("monto"));
                identidadPagoCred.setId_credito(rs.getInt("id_credito"));
+               identidadPagoCred.setTipo_pago(rs.getString("tipo_pago"));
                lstPago.add(identidadPagoCred);
              }
              con.close();
@@ -59,8 +60,8 @@ public class pagos_creditoDAO {
         int regs=0;
         StringBuilder sqrString= new StringBuilder();
         Conexion conecta = new Conexion("DBPLAMAR.db");    
-        sqrString.append("INSERT INTO pagos_credito(folio, fecha, monto, id_credito, flag ) "
-                + "VALUES (?, ?, ?, ?, ?)");
+        sqrString.append("INSERT INTO pagos_credito(folio, fecha, monto, id_credito, tipo_pago, flag ) "
+                + "VALUES (?, ?, ?, ?, ?, ?)");
         System.out.print(sqrString.toString());
         try{
              Connection con = conecta.conectaDB();
@@ -70,7 +71,8 @@ public class pagos_creditoDAO {
              pstmt.setString(2, pago.getFecha());
              pstmt.setFloat(3, pago.getMonto());
              pstmt.setInt(4, pago.getId_credito());
-             pstmt.setInt(5, 1);
+             pstmt.setString(5, pago.getTipo_pago());
+             pstmt.setInt(6, 1);
              regs = pstmt.executeUpdate();
              ResultSet rs = pstmt.getGeneratedKeys();
              if (regs== 1){
@@ -89,8 +91,8 @@ public class pagos_creditoDAO {
         int regs=0;
         StringBuilder sqrString= new StringBuilder();
         Conexion conecta = new Conexion("DBPLAMAR.db");    
-        sqrString.append("UPDATE pagos_credito(folio, fecha, monto, id_credito, flag) "
-                + "VALUES (?, ?, ?, ?, ?, ?) WHERE id_pago_cre=?");
+        sqrString.append("UPDATE pagos_credito(folio, fecha, monto, id_credito, tipo_pago, flag) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?) WHERE id_pago_cre=?");
         System.out.print(sqrString.toString());
         try{
              Connection con = conecta.conectaDB();
@@ -99,8 +101,9 @@ public class pagos_creditoDAO {
              pstmt.setString(2, pago.getFecha());
              pstmt.setFloat(3, pago.getMonto());
              pstmt.setInt(4, pago.getId_credito());
-             pstmt.setInt(5, 2);
-             pstmt.setInt(6, pago.getId_pago_cre());
+             pstmt.setString(5, pago.getTipo_pago());
+             pstmt.setInt(6, 2);
+             pstmt.setInt(7, pago.getId_pago_cre());
              regs = pstmt.executeUpdate();
              
              con.close();
@@ -138,17 +141,37 @@ public class pagos_creditoDAO {
         }
     }
     
+    public int obtenerMaximoId(){
+      String sql= "select max(id_pago_cre) as MaxId from pagos_credito";
+      Conexion conecta = new Conexion("DBPLAMAR.db");
+      System.out.println(sql);
+      int idMax = 0;
+        try (Connection con = conecta.conectaDB();
+             Statement stmt  = con.createStatement();
+             ResultSet rs  = stmt.executeQuery(sql);){
+             while (rs.next()){
+               idMax= rs.getInt("MaxId");
+             }
+             con.close();
+
+        } catch (SQLException e) {
+           System.out.println(e.getMessage());
+        }
+        return idMax;
+    }
+    
     public static void main(String[] Args){
       pagos_creditoDAO pagoDAO = new pagos_creditoDAO();
-
-      List<pagos_credito> lstPagos = new ArrayList<>();
-      List<String> lstWhere = new ArrayList<>();
-      lstWhere.add("id_pago_ap  = 1");
-      lstPagos = pagoDAO.consultaPagoCred(lstWhere);
-      System.out.print("Registro: "+String.valueOf(lstPagos.size()));
-      for (pagos_credito i:lstPagos){
-           System.out.println(i.getId_pago_cre()+":"+i.getFecha()+":"+i.getMonto()+":"+i.getId_credito());
-      }
+      int maximoId = pagoDAO.obtenerMaximoId();
+        System.out.println("Id Maximo: "+ maximoId);
+//      List<pagos_credito> lstPagos = new ArrayList<>();
+//      List<String> lstWhere = new ArrayList<>();
+//      lstWhere.add("id_pago_ap  = 1");
+//      lstPagos = pagoDAO.consultaPagoCred(lstWhere);
+//      System.out.print("Registro: "+String.valueOf(lstPagos.size()));
+//      for (pagos_credito i:lstPagos){
+//           System.out.println(i.getId_pago_cre()+":"+i.getFecha()+":"+i.getMonto()+":"+i.getId_credito());
+//      }
 }
     
 }

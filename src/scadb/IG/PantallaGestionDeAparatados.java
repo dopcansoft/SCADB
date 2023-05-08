@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -62,6 +63,8 @@ public class PantallaGestionDeAparatados {
     ObservableList<pagos_apartado> lstPagosApa = FXCollections.observableArrayList();
 
     public VBox vistaGestionApartadosCliente(VBox vbAreaTrabajo){
+        int folioSiguiente = pagapaDAO.obtenerMaximoId()+1;
+        
         VBox vbPpal = new VBox();
         vbPpal.setSpacing(10);
         vbPpal.setAlignment(Pos.CENTER_LEFT);
@@ -92,13 +95,20 @@ public class PantallaGestionDeAparatados {
         Label lbfolio = new Label("Folio: ");
         Label lbFechaPago = new Label("Fecha Pago: ");
         Label lbMonto = new Label("Monto del Pago: ");
+        Label lbTipoPago = new Label("Tipo Pago: ");
         
         TextField tfClientes = new TextField();
         TextField tfidApartado = new TextField();
         TextField tffolio = new TextField();
+        tffolio.setText("A-"+String.valueOf(folioSiguiente));
+        
         DatePicker dpFechaPago = new DatePicker(LocalDate.now());
         TextField tfMonto = new TextField();
         
+        ObservableList<String> lstOpcionesTipoPago = FXCollections.observableArrayList("EFECTIVO", "TRANSFERENCIA",  "TARJETA");
+        ComboBox cbTipoPago = new ComboBox(lstOpcionesTipoPago);
+        cbTipoPago.setPrefWidth(180);
+  
         Button btnCancelar = new Button("Cancelar");
         Button btnRegPago = new Button("Reg. Pago");
         Button btnGenerarNota = new Button("Generar Nota");
@@ -121,6 +131,9 @@ public class PantallaGestionDeAparatados {
         
         gpDatosPago.add(lbFechaPago, 0, 1);
         gpDatosPago.add(dpFechaPago, 1, 1);
+        
+        gpDatosPago.add(lbTipoPago, 0, 2);
+        gpDatosPago.add(cbTipoPago, 1, 2);
         
         gpDatosPago.add(lbMonto, 2, 1);
         gpDatosPago.add(tfMonto, 3, 1);
@@ -185,7 +198,7 @@ public class PantallaGestionDeAparatados {
             lstPagosApa.clear();
             tfClientes.setText("");
             tfidApartado.setText("");
-            tffolio.setText("");
+            //tffolio.setText("");
             tfMonto.setText("");
             CLIENTE clTemp = (CLIENTE) tvClientes.getSelectionModel().getSelectedItem();
             lstWhereApa.clear();
@@ -221,8 +234,12 @@ public class PantallaGestionDeAparatados {
         montoPagosAparColumna.setMinWidth(120);
         montoPagosAparColumna.setCellValueFactory(new PropertyValueFactory<>("monto"));
         
+        TableColumn<pagos_apartado, String> tipoPagoColumna = new TableColumn<>("Tipo pago");
+        tipoPagoColumna.setMinWidth(120);
+        tipoPagoColumna.setCellValueFactory(new PropertyValueFactory<>("tipo_pago"));
+   
         tvPagos.getColumns().addAll(folioPagosAparColumna, idPagosAparColumna, fechaPagosAparColumna, 
-                montoPagosAparColumna);
+                montoPagosAparColumna, tipoPagoColumna);
         tvPagos.setItems(lstPagosApa);
 
         MenuItem miEliminarPagos = new MenuItem("Eliminar Pago");
@@ -287,6 +304,7 @@ public class PantallaGestionDeAparatados {
             pagapa.setFolio(tffolio.getText());
             pagapa.setFecha(dpFechaPago.getValue().toString());
             pagapa.setMonto(Float.parseFloat(tfMonto.getText()));
+            pagapa.setTipo_pago(cbTipoPago.getValue().toString());
             lstPagosApa.add(pagapa);
             pagapaDAO.insertarPagosAP(pagapa);
             float sumPagado=0;

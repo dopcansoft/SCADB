@@ -146,17 +146,39 @@ public class notas_remisionDAO {
         }
     }
     
+    public int obtenerMaximoId(){
+      String sql= "select max(id_nota_rem) as MaxId from notas_remision";
+      Conexion conecta = new Conexion("DBPLAMAR.db");
+      System.out.println(sql);
+      int idMax = 0;
+        try (Connection con = conecta.conectaDB();
+             Statement stmt  = con.createStatement();
+             ResultSet rs  = stmt.executeQuery(sql);){
+             while (rs.next()){
+               idMax= rs.getInt("MaxId");
+             }
+             con.close();
+
+        } catch (SQLException e) {
+           System.out.println(e.getMessage());
+        }
+        return idMax;
+    }
+    
     public static void main(String[] Args){
       notas_remisionDAO notasDAO = new notas_remisionDAO();
+            int maximoId = notasDAO.obtenerMaximoId();
+        System.out.println("Id Maximo: "+ maximoId);
+      
 
-      List<notas_remision> lstNotas = new ArrayList<>();
-      List<String> lstWhere = new ArrayList<>();
-      lstWhere.add("id_nota_rem  = 1");
-      lstNotas = notasDAO.consultarNotasRem(lstWhere);
-      System.out.print("Registro: "+String.valueOf(lstNotas.size()));
-      for (notas_remision i:lstNotas){
-           System.out.println(i.getId_nota_rem()+":"+i.getFolio()+":"+i.getFecha()+":"+i.getTipo_operacion()+":"+i.getMonto());
-      }
+//      List<notas_remision> lstNotas = new ArrayList<>();
+//      List<String> lstWhere = new ArrayList<>();
+//      lstWhere.add("id_nota_rem  = 1");
+//      lstNotas = notasDAO.consultarNotasRem(lstWhere);
+//      System.out.print("Registro: "+String.valueOf(lstNotas.size()));
+//      for (notas_remision i:lstNotas){
+//           System.out.println(i.getId_nota_rem()+":"+i.getFolio()+":"+i.getFecha()+":"+i.getTipo_operacion()+":"+i.getMonto());
+//      }
     }
     
 }

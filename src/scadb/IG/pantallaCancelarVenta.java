@@ -447,6 +447,10 @@ public class pantallaCancelarVenta {
         btnCancelar.setOnAction((event) -> {
             VENTA vta = (VENTA) tvTablaVentas.getSelectionModel().getSelectedItem();
             ventDAO.cancelarVenta(vta.getCodigo_nota_venta());
+            if (!lstWhere.isEmpty()) lstWhere.clear();
+            lstWhere.add("codigo_nota_venta="+vta.getCodigo_nota_venta());
+            Credito creditoBorrar = creDao.consultaCredito(lstWhere).get(0);
+            creDao.borrarCredito(creditoBorrar.getId_credito());
              removerVistas(vbAreaTrabajo);
         });
         

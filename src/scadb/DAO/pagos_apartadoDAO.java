@@ -31,7 +31,7 @@ public class pagos_apartadoDAO {
                         Filtro.append(" AND "+i);
                 }			
         }		
-        String sql = "SELECT id_pago_ap, folio, fecha, monto, id_apartado FROM pagos_apartado where flag !=3 and "+Filtro.toString();
+        String sql = "SELECT id_pago_ap, folio, fecha, monto, id_apartado, tipo_pago FROM pagos_apartado where flag !=3 and "+Filtro.toString();
         Conexion conecta = new Conexion("DBPLAMAR.db");
         System.out.println(sql);
 
@@ -45,6 +45,7 @@ public class pagos_apartadoDAO {
                identidadPagoAP.setFecha(rs.getString("fecha"));
                identidadPagoAP.setMonto(rs.getFloat("monto"));
                identidadPagoAP.setId_apartado(rs.getInt("id_apartado"));
+               identidadPagoAP.setTipo_pago(rs.getString("tipo_pago"));
                lstPagoAP.add(identidadPagoAP);
              }
              con.close();
@@ -59,8 +60,8 @@ public class pagos_apartadoDAO {
         int regs=0;
         StringBuilder sqrString= new StringBuilder();
         Conexion conecta = new Conexion("DBPLAMAR.db");    
-        sqrString.append("INSERT INTO pagos_apartado(folio, fecha, monto, id_apartado, flag) "
-                + "VALUES (?, ?, ?, ?, ?)");
+        sqrString.append("INSERT INTO pagos_apartado(folio, fecha, monto, id_apartado, tipo_pago, flag) "
+                + "VALUES (?, ?, ?, ?, ?, ?)");
         System.out.print(sqrString.toString());
         try{
              Connection con = conecta.conectaDB();
@@ -70,7 +71,8 @@ public class pagos_apartadoDAO {
              pstmt.setString(2, pago.getFecha());
              pstmt.setFloat(3, pago.getMonto());
              pstmt.setInt(4, pago.getId_apartado());
-             pstmt.setInt(5, 1);
+             pstmt.setString(5, pago.getTipo_pago());
+             pstmt.setInt(6, 1);
              regs = pstmt.executeUpdate();
              ResultSet rs = pstmt.getGeneratedKeys();
              if (regs== 1){
@@ -89,8 +91,8 @@ public class pagos_apartadoDAO {
         int regs=0;
         StringBuilder sqrString= new StringBuilder();
         Conexion conecta = new Conexion("DBPLAMAR.db");    
-        sqrString.append("UPDATE pagos_apartado(folio, fecha, monto, id_apartado, flag) "
-                + "VALUES (?, ?, ?, ?, ?) WHERE id_pago_ap=?");
+        sqrString.append("UPDATE pagos_apartado(folio, fecha, monto, id_apartado, tipo_pago flag) "
+                + "VALUES (?, ?, ?, ?, ?, ?) WHERE id_pago_ap=?");
         System.out.print(sqrString.toString());
         try{
              Connection con = conecta.conectaDB();
@@ -99,8 +101,9 @@ public class pagos_apartadoDAO {
              pstmt.setString(2, pago.getFecha());
              pstmt.setFloat(3, pago.getMonto());
              pstmt.setInt(4, pago.getId_apartado());
-             pstmt.setInt(5, 2);
-             pstmt.setInt(6, pago.getId_pago_ap());
+             pstmt.setString(5, pago.getTipo_pago());
+             pstmt.setInt(6, 2);
+             pstmt.setInt(7, pago.getId_pago_ap());
              regs = pstmt.executeUpdate();
              
              con.close();
@@ -137,17 +140,36 @@ public class pagos_apartadoDAO {
         }
     }
     
+        public int obtenerMaximoId(){
+      String sql= "select max(id_pago_ap) as MaxId from pagos_apartado";
+      Conexion conecta = new Conexion("DBPLAMAR.db");
+      System.out.println(sql);
+      int idMax = 0;
+        try (Connection con = conecta.conectaDB();
+             Statement stmt  = con.createStatement();
+             ResultSet rs  = stmt.executeQuery(sql);){
+             idMax= rs.getInt("MaxId");
+             con.close();
+        } catch (SQLException e) {
+           System.out.println(e.getMessage());
+        }
+        return idMax;
+    }
+    
+    
     public static void main(String[] Args){
       pagos_apartadoDAO pagosDAO = new pagos_apartadoDAO();
+      int maximoId = pagosDAO.obtenerMaximoId();
+      System.out.println("Id Maximo: "+ maximoId);
 
-      List<pagos_apartado> lstPagosAP = new ArrayList<>();
-      List<String> lstWhere = new ArrayList<>();
-      lstWhere.add("id_pago_ap  = 1");
-      lstPagosAP = pagosDAO.consultaPagosAP(lstWhere);
-      System.out.print("Registro: "+String.valueOf(lstPagosAP.size()));
-      for (pagos_apartado i:lstPagosAP){
-           System.out.println(i.getId_pago_ap()+":"+i.getFecha()+":"+i.getMonto()+":"+i.getId_apartado());
-      }
+//      List<pagos_apartado> lstPagosAP = new ArrayList<>();
+//      List<String> lstWhere = new ArrayList<>();
+//      lstWhere.add("id_pago_ap  = 1");
+//      lstPagosAP = pagosDAO.consultaPagosAP(lstWhere);
+//      System.out.print("Registro: "+String.valueOf(lstPagosAP.size()));
+//      for (pagos_apartado i:lstPagosAP){
+//           System.out.println(i.getId_pago_ap()+":"+i.getFecha()+":"+i.getMonto()+":"+i.getId_apartado());
+//      }
     }
     
 }

@@ -9,6 +9,7 @@ public class pagos_credito {
     private float monto;
     private int id_credito;
     private int bandera;
+    private String tipo_pago;
 
     public int getId_pago_cre() {
         return id_pago_cre;
@@ -57,8 +58,13 @@ public class pagos_credito {
     public void setBandera(int bandera) {
         this.bandera = bandera;
     }
-    
-    
-    
+
+    public String getTipo_pago() {
+        return tipo_pago;
+    }
+
+    public void setTipo_pago(String tipo_pago) {
+        this.tipo_pago = tipo_pago;
+    }
     
 }

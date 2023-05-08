@@ -15,6 +15,7 @@ public class pagos_apartado {
 	private float monto;
 	private int id_apartado;
         private int bandera;
+        private String tipo_pago;
 
     public int getId_pago_ap() {
         return id_pago_ap;
@@ -64,4 +65,12 @@ public class pagos_apartado {
         this.bandera = bandera;
     }
 
+    public String getTipo_pago() {
+        return tipo_pago;
+    }
+
+    public void setTipo_pago(String tipo_pago) {
+        this.tipo_pago = tipo_pago;
+    }
+    
 }//end pagos_apartado

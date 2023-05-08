@@ -66,10 +66,12 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.swing.JRViewer;
+//import net.sf.jasperreports.engine.JasperCompileManager;
 import scadb.DAO.bitacora_precioDAO;
 import scadb.DAO.categoriaDAO;
 import scadb.DAO.clienteDAO;
 import scadb.DAO.inventarioDAO;
+import scadb.DAO.notas_remisionDAO;
 
 /**
  *
@@ -100,9 +102,18 @@ public class pantallaCrearVenta {
    bitacora_precioDAO bitacoraDAO = new bitacora_precioDAO();
    clienteDAO cliDAO = new clienteDAO();
    CLIENTE clIdent = new CLIENTE();
-    
+   notas_remisionDAO notasRemiDAO = new notas_remisionDAO();
+   
+   TableView tvProductosSelecc = new TableView();
+   Label lbMontoTotal = new Label("0.0");
+   TextField tfFolio = new TextField();
+   
+   ObservableList<String> lstOpcionesTipoVenta = FXCollections.observableArrayList("EFECTIVO","VENTA A CREDITO", "APARTADO", "TARJETA", "TRANSFERENCIA");
+   ComboBox cbTipoVenta = new ComboBox(lstOpcionesTipoVenta);
+   
     public VBox vistaCrearVenta(VBox vbAreaTrabajo){
-        
+        int folioSiguiente = notasRemiDAO.obtenerMaximoId()+1;
+        tfFolio.setText("AC-"+String.valueOf(folioSiguiente));
         Label lbDescuento = new Label();
         Label lbCdSucursal = new Label("Cd. Suc.");
         Button btntDescuento = new Button();
@@ -145,7 +156,7 @@ public class pantallaCrearVenta {
         Label lbFolio = new Label("Folio de Nota: ");
         Label lbFecha = new Label("Fecha: ");
         
-        TextField tfFolio = new TextField();
+//        TextField tfFolio = new TextField();
         DatePicker dpFecha = new DatePicker(LocalDate.now());
 //        if(usrActivo.getTipo().equals("VENTA")){
 //          dpFecha.setEditable(false);
@@ -153,7 +164,7 @@ public class pantallaCrearVenta {
 //        }
         //Etiquetas/Datos de la Venta
         Label lbEtiquetaMonto = new Label("TOTAL: $ ");
-        Label lbMontoTotal = new Label("0.0");
+//        Label lbMontoTotal = new Label("0.0");
         lbEtiquetaMonto.setFont(fuenteMonto);
         lbMontoTotal.setFont(fuenteMonto);
         
@@ -176,8 +187,8 @@ public class pantallaCrearVenta {
 	Label lbPrecioMayoreo  = new Label("Precrio Mayoreo: ");
         Label lbPrecioVenta = new Label("Precio Venta");
         
-        ObservableList<String> lstOpcionesTipoVenta = FXCollections.observableArrayList("EFECTIVO","VENTA A CREDITO", "APARTADO", "TARJETA", "TRANSFERENCIA");
-        ComboBox cbTipoVenta = new ComboBox(lstOpcionesTipoVenta);
+//        ObservableList<String> lstOpcionesTipoVenta = FXCollections.observableArrayList("EFECTIVO","VENTA A CREDITO", "APARTADO", "TARJETA", "TRANSFERENCIA");
+//        ComboBox cbTipoVenta = new ComboBox(lstOpcionesTipoVenta);
         cbTipoVenta.setPrefWidth(180);
         
         TextField tfCantidad = new TextField();
@@ -328,7 +339,7 @@ public class pantallaCrearVenta {
         cmTabVentas.getItems().add(miEliminarDetVenta);
         
         Label lbProducto = new Label("Tabla Producto Seleccionados: ");
-        TableView tvProductosSelecc = new TableView();
+//        TableView tvProductosSelecc = new TableView();
         tvProductosSelecc.setPrefHeight(350);
         tvProductosSelecc.setPrefWidth(550);
         //id_detalle_venta clave_prod cantidad codigo_nota_venta 
@@ -675,6 +686,9 @@ public class pantallaCrearVenta {
         
         Button btnGuardar = new Button("Registrar Venta");
         btnGuardar.setOnAction((event) -> {
+            
+           
+            
            if (tfCodigoCliente.getText().length()>0){
                if (!detventa.isEmpty()){
                    if (!cbTipoVenta.getSelectionModel().isEmpty()){
@@ -768,6 +782,9 @@ public class pantallaCrearVenta {
                                    altMensaje.setTitle("Informacion-Venta");
                                    altMensaje.show();
                             }
+                            imprimirNotaRemision();
+                            MontoTotal = 0.0f;
+                            lbMontoTotal.setText(String.valueOf(MontoTotal));
                             removerVistas( vbAreaTrabajo);
                        }else{
                         Alert MensajeError = new Alert(Alert.AlertType.ERROR);
@@ -795,73 +812,75 @@ public class pantallaCrearVenta {
             }
         });
         
-        Button btnCrearNotaRemision = new Button("Generar Nota Remision");
-                btnCrearNotaRemision.setOnAction((event) -> {
-                  try{
+//        Button btnCrearNotaRemision = new Button("Generar Nota Remision");
+//                btnCrearNotaRemision.setOnAction((event) -> {
+//                  try{
+//
+//                   /* User home directory location */
+//                   // String userHomeDirectory = System.getProperty("user.home");
+//                    /* Output file location */
+//
+//                    File file;
+//                    JasperReport jasperReport;
+//                    file = new File("Reportes/Formatos/notaRemi.jasper");
+//                    jasperReport = (JasperReport) JRLoader.loadObject(file);
+//                    LocalDateTime ld = LocalDateTime.now();
+//                    String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());
+//                    //String outputFile = userHomeDirectory + File.separatorChar + "ReporteInventario"+fechaFile+".pdf";
+//                    String outputFile = "Reportes/NotasRemision/" + File.separatorChar + "NotaRemision"+fechaFile+".pdf";
+//                   //JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductos.getItems().subList(0, tvProductos.getItems().size()-1));
+//                   JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductosSelecc.getItems());
+//                   System.out.println("Hay "+tvProductosSelecc.getItems().size());
+//                   Map<String, Object> parameters = new HashMap<>();
+//                   parameters.put("ItemsDataSource", itemsJRBean);
+//                   parameters.put("ProductosDataSource", itemsJRBean);
+//                   float total = Float.valueOf(lbMontoTotal.getText());
+//                   parameters.put("total", total);
+//                   parameters.put("cantDescuento", Descuento);
+//                   parameters.put("descuento", tfdescuento.getText());
+//                   parameters.put("folio", tfFolio.getText());
+//                   parameters.put("nombreCliente", tfNombre.getText());
+//                   parameters.put("domicilioFiscal", tfDomicilioFiscal.getText());
+//                   parameters.put("cdSucursal", tfCdSucursal.getText());
+//                   parameters.put("tipoVenta", cbTipoVenta.getValue().toString());
+//                   
+//                   //parameters.put("Fecha", LocalDate.now().toString());
+//                   /* Generando el PDF */
+//                    //C:\Users\dopcan\Documents\NetBeansProjects\ClasesConsultorio\src\gestionconsultorio
+//                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+//                    JRViewer jrViewer;
+//                    JPanel jpanel;
+//                    SwingNode swingNode;
+//                    jpanel = new JPanel();
+//                    swingNode = new SwingNode();
+//                    jrViewer = new JRViewer(jasperPrint);
+//                    jrViewer.setBounds(0, 0, 1200, 800);
+//                    jpanel.setLayout(null);
+//                    jpanel.add(jrViewer);
+//                    jpanel.setSize(1200, 800);
+//                    Pane panePreview = new Pane(); 
+//                    panePreview.setPrefSize(1200, 800);
+//                    panePreview.getChildren().add(swingNode);
+//                    swingNode.setContent(jpanel);
+//
+//                    StackPane rootSelectClientes = new StackPane();
+//                    rootSelectClientes.getChildren().addAll(swingNode);
+//
+//                    Scene scene = new Scene(rootSelectClientes,1200,800);
+//                    Stage stgPpal = new Stage();
+//                    stgPpal.setScene(scene);
+//                    stgPpal.initModality(Modality.WINDOW_MODAL);
+//                    stgPpal.show();  
+//                } catch (JRException ex) {
+//                    ex.printStackTrace();
+//                }             
+//                });
+                
 
-                   /* User home directory location */
-                   // String userHomeDirectory = System.getProperty("user.home");
-                    /* Output file location */
-
-                    File file;
-                    JasperReport jasperReport;
-                    file = new File("Reportes/Formatos/notaRemi.jasper");
-                    jasperReport = (JasperReport) JRLoader.loadObject(file);
-                    LocalDateTime ld = LocalDateTime.now();
-                    String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());
-                    //String outputFile = userHomeDirectory + File.separatorChar + "ReporteInventario"+fechaFile+".pdf";
-                    String outputFile = "Reportes/NotasRemision/" + File.separatorChar + "NotaRemision"+fechaFile+".pdf";
-                   //JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductos.getItems().subList(0, tvProductos.getItems().size()-1));
-                   JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductosSelecc.getItems());
-                   System.out.println("Hay "+tvProductosSelecc.getItems().size());
-                   Map<String, Object> parameters = new HashMap<>();
-                   parameters.put("ItemsDataSource", itemsJRBean);
-                   parameters.put("ProductosDataSource", itemsJRBean);
-                   float total = Float.valueOf(lbMontoTotal.getText());
-                   parameters.put("total", total);
-                   parameters.put("cantDescuento", Descuento);
-                   parameters.put("descuento", tfdescuento.getText());
-                   parameters.put("folio", tfFolio.getText());
-                   parameters.put("nombreCliente", tfNombre.getText());
-                   parameters.put("domicilioFiscal", tfDomicilioFiscal.getText());
-                   parameters.put("cdSucursal", tfCdSucursal.getText());
-                   parameters.put("tipoVenta", cbTipoVenta.getValue().toString());
-                   
-                   //parameters.put("Fecha", LocalDate.now().toString());
-                   /* Generando el PDF */
-                    //C:\Users\dopcan\Documents\NetBeansProjects\ClasesConsultorio\src\gestionconsultorio
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
-                    JRViewer jrViewer;
-                    JPanel jpanel;
-                    SwingNode swingNode;
-                    jpanel = new JPanel();
-                    swingNode = new SwingNode();
-                    jrViewer = new JRViewer(jasperPrint);
-                    jrViewer.setBounds(0, 0, 1200, 800);
-                    jpanel.setLayout(null);
-                    jpanel.add(jrViewer);
-                    jpanel.setSize(1200, 800);
-                    Pane panePreview = new Pane(); 
-                    panePreview.setPrefSize(1200, 800);
-                    panePreview.getChildren().add(swingNode);
-                    swingNode.setContent(jpanel);
-
-                    StackPane rootSelectClientes = new StackPane();
-                    rootSelectClientes.getChildren().addAll(swingNode);
-
-                    Scene scene = new Scene(rootSelectClientes,1200,800);
-                    Stage stgPpal = new Stage();
-                    stgPpal.setScene(scene);
-                    stgPpal.initModality(Modality.WINDOW_MODAL);
-                    stgPpal.show();  
-                } catch (JRException ex) {
-                    ex.printStackTrace();
-                }             
-                });
 
         HBox hbBotonesInferiores = new HBox();
         hbBotonesInferiores.setAlignment(Pos.CENTER_RIGHT);
-        hbBotonesInferiores.getChildren().addAll(btnCancelar, btnGuardar, btnCrearNotaRemision);
+        hbBotonesInferiores.getChildren().addAll(btnCancelar, btnGuardar);
         hbBotonesInferiores.setSpacing(10);
         
         VBox vbTabProducto = new VBox();
@@ -876,6 +895,71 @@ public class pantallaCrearVenta {
         
         return vbVistaPpal; 
     }
+    
+    private void imprimirNotaRemision(){
+        
+            try{
+
+             /* User home directory location */
+             // String userHomeDirectory = System.getProperty("user.home");
+              /* Output file location */
+
+              File file;
+              JasperReport jasperReport;
+              file = new File("Reportes/Formatos/notaRemi.jasper");
+              jasperReport = (JasperReport) JRLoader.loadObject(file);
+              LocalDateTime ld = LocalDateTime.now();
+              String fechaFile = String.valueOf(ld.getDayOfMonth())+String.valueOf(ld.getMonth())+String.valueOf(ld.getYear())+String.valueOf(ld.getHour())+String.valueOf(ld.getMinute())+String.valueOf(ld.getSecond());
+              //String outputFile = userHomeDirectory + File.separatorChar + "ReporteInventario"+fechaFile+".pdf";
+              String outputFile = "Reportes/NotasRemision/" + File.separatorChar + "NotaRemision"+fechaFile+".pdf";
+             //JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductos.getItems().subList(0, tvProductos.getItems().size()-1));
+             JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(tvProductosSelecc.getItems());
+             System.out.println("Hay "+tvProductosSelecc.getItems().size());
+             Map<String, Object> parameters = new HashMap<>();
+             parameters.put("ItemsDataSource", itemsJRBean);
+             parameters.put("ProductosDataSource", itemsJRBean);
+             float total = Float.valueOf(lbMontoTotal.getText());
+             parameters.put("total", total);
+             parameters.put("cantDescuento", Descuento);
+             parameters.put("descuento", tfdescuento.getText());
+             parameters.put("folio", tfFolio.getText());
+             parameters.put("nombreCliente", tfNombre.getText());
+             parameters.put("domicilioFiscal", tfDomicilioFiscal.getText());
+             parameters.put("cdSucursal", tfCdSucursal.getText());
+             parameters.put("tipoVenta", cbTipoVenta.getValue().toString());
+             //JasperCompileManager.compileReportToFile("our_jasper_template.jrxml",
+             //  "our_compiled_template.jasper");
+             //parameters.put("Fecha", LocalDate.now().toString());
+             /* Generando el PDF */
+              //C:\Users\dopcan\Documents\NetBeansProjects\ClasesConsultorio\src\gestionconsultorio
+              JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+              JRViewer jrViewer;
+              JPanel jpanel;
+              SwingNode swingNode;
+              jpanel = new JPanel();
+              swingNode = new SwingNode();
+              jrViewer = new JRViewer(jasperPrint);
+              jrViewer.setBounds(0, 0, 1200, 800);
+              jpanel.setLayout(null);
+              jpanel.add(jrViewer);
+              jpanel.setSize(1200, 800);
+              Pane panePreview = new Pane(); 
+              panePreview.setPrefSize(1200, 800);
+              panePreview.getChildren().add(swingNode);
+              swingNode.setContent(jpanel);
+
+              StackPane rootSelectClientes = new StackPane();
+              rootSelectClientes.getChildren().addAll(swingNode);
+
+              Scene scene = new Scene(rootSelectClientes,1200,800);
+              Stage stgPpal = new Stage();
+              stgPpal.setScene(scene);
+              stgPpal.initModality(Modality.WINDOW_MODAL);
+              stgPpal.show();  
+          } catch (JRException ex) {
+              ex.printStackTrace();
+          }
+        }
 
     private void ventanaSeleccionarClientes(){
            Stage stgPpal = new Stage();

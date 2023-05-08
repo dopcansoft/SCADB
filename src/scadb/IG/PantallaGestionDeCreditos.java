@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -63,6 +64,8 @@ public class PantallaGestionDeCreditos {
     
 
      public VBox vistaGestionCreditosCliente(VBox vbAreaTrabajo){
+        int folioSiguiente = pagcreDAO.obtenerMaximoId()+1;
+         
         VBox vbPpal = new VBox();
         vbPpal.setSpacing(10);
         vbPpal.setAlignment(Pos.CENTER_LEFT);
@@ -93,13 +96,20 @@ public class PantallaGestionDeCreditos {
         Label lbfolio = new Label("Folio: ");
         Label lbFechaPago = new Label("Fecha Pago: ");
         Label lbMonto = new Label("Monto del Pago: ");
+        Label lbTipoPago = new Label("Tipo Pago: ");
         
         TextField tfClientes = new TextField();
         TextField tfidCredito = new TextField();
         TextField tffolio = new TextField();
+        tffolio.setText("C-"+String.valueOf(folioSiguiente));
+        
         DatePicker dpFechaPago = new DatePicker(LocalDate.now());
         TextField tfMonto = new TextField();
-        
+
+        ObservableList<String> lstOpcionesTipoPago = FXCollections.observableArrayList("EFECTIVO", "TRANSFERENCIA", "TARJETA");
+        ComboBox cbTipoPago = new ComboBox(lstOpcionesTipoPago);
+        cbTipoPago.setPrefWidth(180);
+       
         Button btnCancelar = new Button("Cancelar");
         Button btnRegPago = new Button("Reg. Pago");
         Button btnGenerarNota = new Button("Generar Nota");
@@ -122,6 +132,9 @@ public class PantallaGestionDeCreditos {
         
         gpDatosPago.add(lbFechaPago, 0, 1);
         gpDatosPago.add(dpFechaPago, 1, 1);
+
+        gpDatosPago.add(lbTipoPago, 0, 2);
+        gpDatosPago.add(cbTipoPago, 1, 2);
         
         gpDatosPago.add(lbMonto, 2, 1);
         gpDatosPago.add(tfMonto, 3, 1);
@@ -188,7 +201,7 @@ public class PantallaGestionDeCreditos {
             lstPagosCre.remove(0, lstPagosCre.size());
             tfClientes.setText("");
             tfidCredito.setText("");
-            tffolio.setText("");
+            //tffolio.setText("");
             tfMonto.setText("");
             CLIENTE clTemp = (CLIENTE) tvClientes.getSelectionModel().getSelectedItem();
             lstWhereCre.add("codigo_cliente = "+clTemp.getCodigo_cliente());
@@ -223,8 +236,12 @@ public class PantallaGestionDeCreditos {
         montoPagosCreditoColumna.setMinWidth(120);
         montoPagosCreditoColumna.setCellValueFactory(new PropertyValueFactory<>("monto"));
         
+        TableColumn<pagos_credito, String> tipoCreditoColumna = new TableColumn<>("Tipo pago");
+        tipoCreditoColumna.setMinWidth(120);
+        tipoCreditoColumna.setCellValueFactory(new PropertyValueFactory<>("tipo_pago"));
+        
         tvPagos.getColumns().addAll(folioPagosCreditoColumna, idPagosCreditoColumna, fechaPagosCreditoColumna, 
-                montoPagosCreditoColumna);
+                montoPagosCreditoColumna, tipoCreditoColumna);
         tvPagos.setItems(lstPagosCre);
 
         
@@ -289,6 +306,7 @@ public class PantallaGestionDeCreditos {
             pagcre.setFolio(tffolio.getText());
             pagcre.setFecha(dpFechaPago.getValue().toString());
             pagcre.setMonto(Float.parseFloat(tfMonto.getText()));
+            pagcre.setTipo_pago(cbTipoPago.getValue().toString());
             lstPagosCre.add(pagcre);
             pagcreDAO.insertarPagoCred(pagcre);
             float sumPagado=0;

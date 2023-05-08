@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cotizacion" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5c59f63-17db-4ecf-865d-2666227a449f">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="44"/>
-	<property name="ireport.y" value="390"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="223"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -105,17 +105,17 @@
 			<staticText>
 				<reportElement x="473" y="48" width="279" height="15" uuid="6ef9950e-59d8-4110-b79d-d21f644df109"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[COL.DEL MAESTRO C.P.91920]]></text>
+				<text><![CDATA[COL. José María Morelo CP:96010]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="473" y="64" width="279" height="15" uuid="655da690-7051-40c4-99c6-7bbed9f261e5"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[TEL.01 (229) 920 33 65 VERACRUZ.VER.]]></text>
+				<text><![CDATA[TEL. 2299 333 977 ACAYUCAN VER.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="473" y="33" width="279" height="16" uuid="21803ea4-99ce-4073-979b-f33e84d694c8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[PROLONGACION DIAZ MIRON]]></text>
+				<text><![CDATA[COSTERA DEL GOLFO 38]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="473" y="93" width="279" height="15" uuid="3f8d7362-3138-4d78-b78e-07035d0c1043"/>
@@ -130,7 +130,7 @@
 			<staticText>
 				<reportElement x="95" y="47" width="279" height="15" uuid="aba21a6a-a6d4-4d1e-840b-e97904e3448a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[COL.DEL MAESTRO C.P.91920]]></text>
+				<text><![CDATA[COL. José María Morelo CP:96010]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="92" width="279" height="15" uuid="8795865f-dcae-4444-9882-75af8baf2fd6"/>
@@ -140,12 +140,12 @@
 			<staticText>
 				<reportElement x="95" y="63" width="279" height="15" uuid="264e59a9-7b43-440a-9e2b-e49215f7cb10"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[TEL.01 (229) 920 33 65 VERACRUZ.VER.]]></text>
+				<text><![CDATA[TEL. 2299 333 977 ACAYUCAN VER.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="32" width="279" height="16" uuid="128c1861-f334-4d9c-bcc4-737dcc3185f8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[PROLONGACION DIAZ MIRON]]></text>
+				<text><![CDATA[COSTERA DEL GOLFO 38]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="77" width="279" height="15" uuid="c0e7eb0d-0fcb-4ac3-bec8-e7fcf4a5e863"/>

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -138,6 +138,7 @@ public class pantallaExportarXlsVenta {
             if (rbPorFecha.isSelected()){
                 lstWhere.clear();
                 lstWhere.add("fecha = '"+dpFechas.getValue().toString()+"' ");
+                lstWhere.add("flag != 4");
                 
                 if(!lstVentas.isEmpty()) lstVentas.clear();
                 if(!obList.isEmpty()) obList.clear();
@@ -145,6 +146,7 @@ public class pantallaExportarXlsVenta {
                 lstVentas.addAll(ventDAO.consultaVenta(lstWhere));
                 lstWhere.clear();
                 lstWhere.add("fecha = '"+dpFechas.getValue().toString()+"' ");
+                lstWhere.add("flag != 4");
                 obList.setAll(notasDAO.consultarNotasRem(lstWhere));
                 tvNotasRemision.setItems(obList);
             }
@@ -153,12 +155,14 @@ public class pantallaExportarXlsVenta {
                 if(!obList.isEmpty()) obList.clear();
                 lstWhere.clear();
                 lstWhere.add("tipo_operacion LIKE '%"+tfTipoVenta.getText()+"%' ");
+                lstWhere.add("flag != 4");
                 obList.setAll(notasDAO.consultarNotasRem(lstWhere));
                 tvNotasRemision.setItems(obList);
                 
                 if(!lstVentas.isEmpty()) lstVentas.clear();
                 lstWhere.clear();
                 lstWhere.add("tipo_venta LIKE '%"+tfTipoVenta.getText()+"%' ");
+                lstWhere.add("flag != 4");
                 lstVentas.addAll(ventDAO.consultaVenta(lstWhere));
             }
         });
@@ -204,6 +208,8 @@ public class pantallaExportarXlsVenta {
                     "Descripcion",
                     "Cantidad",
                     "Codigo Nota Venta",
+                    "Precio Venta",
+                    "Sub-Total",
                 };
                 
                 HSSFCellStyle headerStyle = workbook.createCellStyle();
@@ -251,7 +257,7 @@ public class pantallaExportarXlsVenta {
                     cell.setCellValue(header);
                 }
                 
-                lstNotasRemision.addAll(obList);
+                //lstNotasRemision.addAll(obList);
                 for (int i = 0; i < lstVentas.size(); ++i ) {
                     HSSFRow datosRowVenta = sheetVenta.createRow(i+1);
                     
@@ -295,6 +301,10 @@ public class pantallaExportarXlsVenta {
                         cell.setCellValue(lstDetalleVenta.get(x).getCantidad());
                         cell = datosRowDetalleVenta.createCell(4);
                         cell.setCellValue(lstDetalleVenta.get(x).getCodigo_nota_venta());
+                        cell = datosRowDetalleVenta.createCell(5);
+                        cell.setCellValue(lstDetalleVenta.get(x).getPrecio_venta());
+                        cell = datosRowDetalleVenta.createCell(6);
+                        cell.setCellValue(lstDetalleVenta.get(x).getCantidad()*lstDetalleVenta.get(x).getPrecio_venta());
                         rowCount++;
                     }
                 }
