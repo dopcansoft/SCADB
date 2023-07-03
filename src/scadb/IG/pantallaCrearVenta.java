@@ -113,7 +113,7 @@ public class pantallaCrearVenta {
    
     public VBox vistaCrearVenta(VBox vbAreaTrabajo){
         int folioSiguiente = notasRemiDAO.obtenerMaximoId()+1;
-        tfFolio.setText("AC-"+String.valueOf(folioSiguiente));
+        tfFolio.setText("SA-"+String.valueOf(folioSiguiente));
         Label lbDescuento = new Label();
         Label lbCdSucursal = new Label("Cd. Suc.");
         Button btntDescuento = new Button();
