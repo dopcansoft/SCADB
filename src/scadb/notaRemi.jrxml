@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cotizacion" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5c59f63-17db-4ecf-865d-2666227a449f">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="323"/>
+	<property name="ireport.x" value="80"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -146,22 +146,22 @@
 			<staticText>
 				<reportElement x="95" y="47" width="279" height="15" uuid="aba21a6a-a6d4-4d1e-840b-e97904e3448a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[COL. José María Morelo CP:96010]]></text>
+				<text><![CDATA[COL. CENTRO C.P. 93600]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="92" width="279" height="15" uuid="8795865f-dcae-4444-9882-75af8baf2fd6"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[plamar_ver13@hotmail.com]]></text>
+				<text><![CDATA[plamarmartinezdelatorre@gmail.com]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="63" width="279" height="15" uuid="264e59a9-7b43-440a-9e2b-e49215f7cb10"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[TEL. 2299 333 977 ACAYUCAN VER.]]></text>
+				<text><![CDATA[CEL. 2321091862 MARTINEZ DE LA TORRE VER.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="32" width="279" height="16" uuid="128c1861-f334-4d9c-bcc4-737dcc3185f8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[COSTERA DEL GOLFO 38]]></text>
+				<text><![CDATA[VICENTE GUERRERO NO. 604]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="77" width="279" height="15" uuid="c0e7eb0d-0fcb-4ac3-bec8-e7fcf4a5e863"/>
