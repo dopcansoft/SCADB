@@ -147,7 +147,8 @@ public class notas_remisionDAO {
     }
     
     public int obtenerMaximoId(){
-      String sql= "select max(id_nota_rem) as MaxId from notas_remision";
+      //String sql= "select max(id_nota_rem) as MaxId from notas_remision";
+      String sql= "select seq as MaxId from sqlite_sequence where name = 'notas_remision'";
       Conexion conecta = new Conexion("DBPLAMAR.db");
       System.out.println(sql);
       int idMax = 0;

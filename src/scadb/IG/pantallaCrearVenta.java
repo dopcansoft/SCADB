@@ -112,8 +112,8 @@ public class pantallaCrearVenta {
    ComboBox cbTipoVenta = new ComboBox(lstOpcionesTipoVenta);
    
     public VBox vistaCrearVenta(VBox vbAreaTrabajo){
-        int folioSiguiente = notasRemiDAO.obtenerMaximoId()+1;
-        tfFolio.setText("SA-"+String.valueOf(folioSiguiente));
+        int folioSiguiente = notasRemiDAO.obtenerMaximoId();
+        tfFolio.setText("MT-"+String.valueOf(folioSiguiente+1));
         Label lbDescuento = new Label();
         Label lbCdSucursal = new Label("Cd. Suc.");
         Button btntDescuento = new Button();
